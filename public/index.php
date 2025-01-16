@@ -48,8 +48,8 @@ $router->add([ 'name' => 'Modificar skills',
                 'path' => '/^\/skills\/edit\/$/',
                 'action' => [PortfolioController::class, 'EditSkillsAction']]);
 
-$router->add([ 'name' => 'Cerrar sesión de usuario',
-                'path' => '/^\/skills\/del\/$/',
+$router->add([ 'name' => 'Eliminar una skill',
+                'path' => '/^\/skills\/del\/[a-zA-Z]+$/',
                 'action' => [PortfolioController::class, 'DelSkillsAction']]);
 
 //$request = $_SERVER['REQUEST_URI'];

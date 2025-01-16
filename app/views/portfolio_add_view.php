@@ -1,5 +1,8 @@
 <?php
     require_once "loged.php";
+
+    // Recojo el valor de $data['skills'] que viene del controlador
+    $skills = $data['skills'];
 ?>
 
 <!DOCTYPE html>
@@ -59,6 +62,17 @@
             <label for="visible_sk">Visible:</label>
             <input type="checkbox" name="visible_sk" id="visible_sk"><br/>
             <label for="skills">Skills:</label><br/>
+            <?php
+            if (!empty($skills)) {
+                echo '<ul id="skills">';
+                foreach ($skills as $skill) {
+                    echo '<li id="categorias">';
+                    echo '<input type="checkbox" name="skills[]" value="' . htmlspecialchars($skill['categoria']) . '"> ' . htmlspecialchars($skill['categoria']);
+                    echo '</li>';
+                }
+                echo '</ul>';
+            }
+        ?>
         </fieldset>
         <input type="submit" id="enviar" value="Crear">
     </form>

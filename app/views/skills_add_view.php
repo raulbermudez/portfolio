@@ -20,8 +20,8 @@
     ?>
     <form method="post" action="">
         <label for="skill">Nombre de la skill</label>
-        <input type="text" name="skill" id="skill">
-        <input type="submit" id="enviar" value="Añadir">
+        <input type="text" name="skill" id="skill"><?php echo $data["msjErrorCategoria"]?>
+        <input type="submit" id="enviar" name="enviar" value="Añadir">
     </form>
 
 </body>
