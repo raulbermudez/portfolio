@@ -29,3 +29,9 @@ form #enviar {
 form #enviar:hover {
     background-color: #0056b3;
 }
+
+#skills{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}

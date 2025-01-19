@@ -37,6 +37,10 @@ $router->add([ 'name' => 'Crear portfolio',
                 'path' => '/^\/portfolio\/crear\/$/',
                 'action' => [PortfolioController::class, 'AddAction']]);
 
+$router->add([ 'name' => 'Editar portfolio',
+                'path' => '/^\/portfolio\/editar\/[0-9]+$/',
+                'action' => [PortfolioController::class, 'EditPortfolioAction']]);
+
 $router->add([ 'name' => 'Gestionar skills',
                 'path' => '/^\/skills\/$/',
                 'action' => [PortfolioController::class, 'SkillsAction']]);
