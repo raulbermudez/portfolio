@@ -199,5 +199,16 @@ class Usuarios extends DBAbstractModel
             return null;
         }
     }
+
+    public function getIdByEmail($email){
+        $this->query = "SELECT id FROM usuarios WHERE email = :email";
+        $this->parametros['email'] = $email;
+        $this->get_results_from_query();
+        if (count($this->rows) > 0) {
+            return $this->rows[0]['id'];
+        } else {
+            return null;
+        }
+    }
 }
 ?>

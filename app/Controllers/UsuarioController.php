@@ -167,6 +167,7 @@ class UsuarioController extends BaseController
                 $_SESSION['nombre'] = $objUsuario->getNameByEmail($data['email']);
                 $_SESSION['apellidos'] = $objUsuario->getLastNameByEmail($data['email']);
                 $_SESSION['perfil_usuario'] = $objUsuario->getUserProfile($data['email']);
+                $_SESSION['id'] = $objUsuario->getIdByEmail($data['email']);
 
                 header('Location: ..');
             } 
