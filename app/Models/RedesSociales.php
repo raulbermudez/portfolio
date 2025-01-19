@@ -25,6 +25,8 @@ class RedesSociales extends DBAbstractModel
 
     private $updated_at;
 
+    private $visible;
+
     private $id_usuario;
 
     // Creo los setters
@@ -33,6 +35,15 @@ class RedesSociales extends DBAbstractModel
     }
     public function setUrl($url) {
         $this->url = $url ;
+    }
+
+    public function setVisible($visible) {
+        if($visible == "on"){
+            $visible = 1;
+        }else{
+            $visible = 0;
+        }
+        $this->visible = $visible ;
     }
 
     public function setIdUsuario($id_usuario) {

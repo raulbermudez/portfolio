@@ -2,7 +2,7 @@
 namespace App\Models;
 require_once "DBAbstractModel.php";
 
-class RedesSociales extends DBAbstractModel
+class Proyectos extends DBAbstractModel
 {
     private static $instancia;
     // Patron singleton, no puedo tener dos objetos de la clase usuario
@@ -57,7 +57,16 @@ class RedesSociales extends DBAbstractModel
     }
 
     public function setVisible($visible) {
+        if($visible == "on"){
+            $visible = 1;
+        }else{
+            $visible = 0;
+        }
         $this->visible = $visible ;
+    }
+
+    public function setIdUsuario($id_usuario) {
+        $this->usuarios_id = $id_usuario ;
     }
 
     public function getMensaje(){

@@ -48,6 +48,15 @@ class Trabajos extends DBAbstractModel
         $this->logros = $logros ;
     }
 
+    public function setVisible($visible) {
+        if($visible == "on"){
+            $visible = 1;
+        }else{
+            $visible = 0;
+        }
+        $this->visible = $visible ;
+    }
+
     public function setIdUsuario($id_usuario) {
         $this->id_usuario = $id_usuario ;
     }

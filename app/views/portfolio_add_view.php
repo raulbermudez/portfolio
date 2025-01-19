@@ -23,33 +23,33 @@
         <fieldset>
             <legend>Información de proyectos</legend>
             <label for="titulo">Titulo</label>
-            <input type="text" name="titulo" id="titulo"><br/>
+            <input type="text" name="titulo" id="titulo" value="<?php echo $data['tituloP']?>"><?php echo $data['msjErrorTituloP'] ?><br/>
             <label for="descripcion">Descripción</label>
-            <textarea name="descripcion" id="descripcion"></textarea><br/>
+            <textarea name="descripcion" id="descripcion"><?php echo $data['descripcionP']?></textarea><?php echo $data['msjErrorDescripcionP'] ?><br/>
             <label for="tecnologias">Tecnologias</label>
-            <input type="text" name="tecnologias" id="tecnologias"><br/>
+            <input type="text" name="tecnologias" id="tecnologias" value="<?php echo $data['tecnologias']?>"><?php echo $data['msjErrorTecnologias'] ?><br/>
             <label for="visible_pro">Visible:</label>
             <input type="checkbox" name="visible_pro" id="visible_pro">
         </fieldset>
         <fieldset>
             <legend>Información de redes sociales</legend>
             <label for="nombre">Nombre</label>
-            <input type="text" name="nombre" id="nombre"><br/>
+            <input type="text" name="nombre" id="nombre" value="<?php echo $data['nombre']?>"><?php echo $data['msjErrorNombre'] ?><br/>
             <label for="descripcion">Url</label>
-            <input type="url" name="url" id="url"><br/>
+            <input type="url" name="url" id="url"value="<?php echo $data['url']?>"><?php echo $data['msjErrorUrl'] ?><br/>
             <label for="visible_rs">Visible:</label>
             <input type="checkbox" name="visible_rs" id="visible_rs">
         </fieldset>
         <fieldset>
             <legend>Información de trabajos</legend>
             <label for="titulo_trab">Titulo</label>
-            <input type="text" name="titulo_trab" id="titulo_trab"><br/>
+            <input type="text" name="titulo_trab" id="titulo_trab"value="<?php echo $data['tituloT']?>"><?php echo $data['msjErrorTituloT'] ?><br/>
             <label for="descripcion_trab">Descripción</label>
             <textarea name="descripcion_trab" id="descripcion_trab"></textarea><br/>
             <label for="fecha_inicio">Fecha de inicio</label>
-            <input type="date" name="fecha_inicio" id="fecha_inicio"><br/>
+            <input type="date" name="fecha_inicio" id="fecha_inicio"value="<?php echo $data['fechaIni']?>"><?php echo $data['msjErrorFechaIni'] ?><br/>
             <label for="fecha_final">Fecha final</label>
-            <input type="date" name="fecha_final" id="fecha_final"><br/>
+            <input type="date" name="fecha_final" id="fecha_final"value="<?php echo $data['fechaFin']?>"><?php echo $data['msjErrorFechaFin'] ?><br/>
             <label for="logros">Logros</label>
             <textarea name="logros" id="logros"></textarea><br/>
             <label for="visible_tra">Visible:</label>
@@ -58,9 +58,9 @@
         <fieldset>
             <legend>Información de skills</legend>
             <label for="habilidades">Habilidades</label>
-            <input type="text" name="habilidades" id="habilidades"><br/>
+            <input type="text" name="habilidades" id="habilidades" value="<?php echo $data['habilidadesS']?>"><?php echo $data['msjErrorHabilidadesS'] ?><br/>
             <label for="visible_sk">Visible:</label>
-            <input type="checkbox" name="visible_sk" id="visible_sk"><br/>
+            <input type="checkbox" name="visible_sk" id="visible_sk" value="<?php echo $data['tituloP']?>"><?php echo $data['msjErrorTituloP'] ?><br/>
             <label for="skills">Skills:</label><br/>
             <?php
             if (!empty($skills)) {
@@ -74,7 +74,7 @@
             }
         ?>
         </fieldset>
-        <input type="submit" id="enviar" value="Crear">
+        <input type="submit" name="crear" id="enviar" value="Crear">
     </form>
 </body>
 </html>
