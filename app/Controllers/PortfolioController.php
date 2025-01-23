@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controllers;
 use App\Models\Trabajos;
 use App\Models\RedesSociales;
@@ -28,19 +27,19 @@ class PortfolioController extends BaseController
             $data['tituloP'] = $_POST['titulo'];
             $data['descripcionP'] = $_POST['descripcion'];
             $data['tecnologias'] = $_POST['tecnologias'];
-            // $data['visible_pro'] = $visible_pro = $_POST['visible_pro'];
             $data['nombre'] = $_POST['nombre'];
             $data['url']  = $_POST['url'];
-            // $data['visible_rs'] = $visible_rs = $_POST['visible_rs'];
             $data['tituloT']  = $_POST['titulo_trab'];
             $data['descripcionT']  = $_POST['descripcion_trab'];
             $data['fechaIni'] =  $_POST['fecha_inicio'];
             $data['fechaFin'] = $_POST['fecha_final'];
             $data['logros'] == $_POST['logros'];
-            // $data['visible_tra'] = $visible_tra = $_POST['visible_tra'];
             $data['habilidadesS'] = $_POST['habilidades'];
-            // $data['visible_sk'] = $visible_sk = $_POST['visible_sk'];
-            // $data['skills'] = $skills = $_POST['skills'];
+            if (isset($_POST['skills'])){
+                $data['skills'] = $_POST['skills'];
+            } else{
+                $data['skills'] = '';
+            }
             $lprocesaFormulario = true;
             if ($data['tituloP'] === "") {
                 $lprocesaFormulario = false;
@@ -74,10 +73,10 @@ class PortfolioController extends BaseController
                 $lprocesaFormulario = false;
                 $data['msjErrorHabilidadesS'] = "* Las habilidades de la tarea no pueden estar vacías";
             }
-            // if ($data['skills'] === "") {
-            //     $lprocesaFormulario = false;
-            //     $data['msjErrorSkills'] = "* Las skills de la tarea no pueden estar vacías";
-            // }
+            if ($data['skills'] === "") {
+                $lprocesaFormulario = false;
+                $data['msjErrorSkills'] = "* Las skills de la tarea no pueden estar vacías";
+            }
             if ($data['fechaIni'] === "") {
                 $lprocesaFormulario = false;
                 $data['msjErrorFechaIni'] = "* La fecha de inicio no puede estar vacía";
@@ -98,39 +97,43 @@ class PortfolioController extends BaseController
         }
 
         if($lprocesaFormulario){
-            // $id_usua = $_SESSION['id'];
+            session_start();
+            $id_usua = $_SESSION['id'];
             // Creo el trabajo
-            // $trabajo = new Trabajos();
-            // $trabajo->setTitulo($tituloT);
-            // $trabajo->setDescripcion($descripcionT);
-            // $trabajo->setFechaInicio($fechaIni);
-            // $trabajo->setFechaFinal($fechaFin);
-            // $trabajo->setLogros($logros);
-            // $trabajo->setVisible($visible_tra);
-            // $trabajo->setIdUsuario($id_usua);
-            // $trabajo->set();
+            $trabajo = new Trabajos();
+            $trabajo->setTitulo($data['tituloT']);
+            $trabajo->setDescripcion($data['descripcionT']);
+            $trabajo->setFechaInicio($data['fechaIni']);
+            $trabajo->setFechaFinal($data['fechaFin']);
+            $trabajo->setLogros($data['logros']);
+            $trabajo->setVisible("on");
+            $trabajo->setIdUsuario($id_usua);
+            $trabajo->set();
             // Creo el proyecto
-            // $proyecto = new Proyectos();
-            // $proyecto->setTitulo($data['tituloP']);
-            // $proyecto->setDescripcion($descripcionP);
-            // $proyecto->setTecnologias($tecnologias);
-            // $proyecto->setVisible($visible_pro);
-            // $proyecto->setIdUsuario($id_usua);
-            // $proyecto->set();
+            $proyecto = new Proyectos();
+            $proyecto->setTitulo($data['tituloP']);
+            $proyecto->setDescripcion($data['descripcionP']);
+            $proyecto->setTecnologias($data['tecnologias']);
+            $proyecto->setVisible("on");
+            $proyecto->setIdUsuario($id_usua);
+            $proyecto->set();
             // Creo la red social
-            // $redSocial = new RedesSociales();
-            // $redSocial->setRedesSocialescol($nombre);
-            // $redSocial->setUrl($url);
-            // $redSocial->setVisible($visible_rs);
-            // $redSocial->setIdUsuario($id_usua);
-            // $redSocial->set();
+            $redSocial = new RedesSociales();
+            $redSocial->setRedesSocialescol($data['nombre']);
+            $redSocial->setUrl($data['url']);
+            $redSocial->setVisible("on");
+            $redSocial->setIdUsuario($id_usua);
+            $redSocial->set();
             // Creo la tarea
-            // $tarea = new Tareas();
-            // $tarea->setHabilidades($habilidadesS);
-            // $tarea->setVisible($visible_sk);
-            // $tarea->setIdUsuario($id_usua);
-            // $tarea->set();
+            var_dump($data);
+            $tarea = new Tareas();
+            $tarea->setHabilidades($data['habilidadesS']);
+            $tarea->setVisible("on");
+            $tarea->setSkills($data['skills']);
+            $tarea->setIdUsuario($id_usua);
+            $tarea->set();
             // Creo la relación entre la tarea y el trabajo
+            header('Location: ..');
         } else{
             // Obtengo del modelo Skills los datos de las skills
             $skills = Skills::getInstancia()->get();

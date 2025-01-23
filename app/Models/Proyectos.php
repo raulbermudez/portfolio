@@ -44,10 +44,6 @@ class Proyectos extends DBAbstractModel
         $this->tecnologias = $tecnologias ;
     }
 
-    public function setUsuariosId($usuarios_id) {
-        $this->usuarios_id = $usuarios_id ;
-    }
-
     public function setCreated_at($created_at) {
         $this->created_at = $created_at ;
     }
@@ -76,7 +72,18 @@ class Proyectos extends DBAbstractModel
     /*Método para insertar datos en la tabla proyectos*/
     public function get(){}
 
-    public function set(){}
+    public function set(){
+        $this->query = "INSERT INTO proyectos (titulo, descripcion, tecnologias, visible, created_at, updated_at, usuarios_id) VALUES (:titulo, :descripcion, :tecnologias, :visible, :created_at, :updated_at, :usuarios_id)";
+        $this->parametros['titulo'] = $this->titulo;
+        $this->parametros['descripcion'] = $this->descripcion;
+        $this->parametros['tecnologias'] = $this->tecnologias;
+        $this->parametros['visible'] = $this->visible;
+        $this->parametros['created_at'] = date('Y-m-d H:i:s');
+        $this->parametros['updated_at'] = date('Y-m-d H:i:s');
+        $this->parametros['usuarios_id'] = $this->usuarios_id;
+        $this->get_results_from_query();
+        $this->mensaje = 'Proyecto agregado';
+    }
 
     public function edit(){}
 

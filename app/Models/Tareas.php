@@ -47,7 +47,7 @@ class Tareas extends DBAbstractModel
 
     /*Método para insertar datos en la tabla categorias_skills*/
     public function set() {
-        $this->query = "INSERT INTO categorias_skills (habilidades, visible, skills, usuarios_id) VALUES (:habilidades, :visible, :skills, :usuarios_id)";
+        $this->query = "INSERT INTO skills (habilidades, visible, categorias_skills_categoria, usuarios_id) VALUES (:habilidades, :visible, :skills, :usuarios_id)";
         $this->parametros['habilidades'] = $this->habilidades;
         $this->parametros['visible'] = $this->visible;
         $this->parametros['skills'] = $this->skills;

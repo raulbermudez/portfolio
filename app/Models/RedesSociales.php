@@ -56,7 +56,7 @@ class RedesSociales extends DBAbstractModel
 
     /*Método para insertar datos en la tabla usuario*/
     public function set(){
-        $this->query = "INSERT INTO redes_sociales (redes_socialescol, url, created_at, updated_at, id_usuario) VALUES (:redes_socialescol, :url, created_at, updated_at, id_usuario)";
+        $this->query = "INSERT INTO redes_sociales (redes_socialescol, url, created_at, updated_at, usuarios_id) VALUES (:redes_socialescol, :url, :created_at, :updated_at, :id_usuario)";
         $this->parametros['redes_socialescol'] = $this->redes_socialescol;
         $this->parametros['url'] = $this->url;
         $this->parametros['created_at'] = date('Y-m-d H:i:s');
@@ -67,7 +67,7 @@ class RedesSociales extends DBAbstractModel
     }
 
     public function get(){
-        $this->query = "SELECT id, redes_socialescol, url, created_at, updated_at, id_usuario FROM redes_sociales WHERE id_usuario = :id_usuario";
+        $this->query = "SELECT id, redes_socialescol, url, created_at, updated_at, usuarios_id FROM redes_sociales WHERE id_usuario = :id_usuario";
         $this->parametros['id_usuario'] = $this->id_usuario;
         $this->get_results_from_query();
         $this->mensaje = 'Redes sociales obtenidas';

@@ -67,7 +67,7 @@ class Trabajos extends DBAbstractModel
 
     /*Método para insertar datos en la tabla usuario*/
     public function set() {
-        $this->query = "INSERT INTO trabajos (titulo, descripcion, fecha_inicio, fecha_final, logros, visible, created_at, updated_at, id_usuario) VALUES (':titulo', ':descripcion', ':fecha_inicio', ':fecha_final', ':logros', 1, NOW(), NOW(), ':id_usuario')";
+        $this->query = "INSERT INTO trabajos (titulo, descripcion, fecha_inicio, fecha_final, logros, visible, created_at, updated_at, usuarios_id) VALUES (:titulo, :descripcion, :fecha_inicio, :fecha_final, :logros, 1, NOW(), NOW(), :id_usuario)";
         $this->parametros['titulo'] = $this->titulo;
         $this->parametros['descripcion'] = $this->descripcion;
         $this->parametros['fecha_inicio'] = $this->fecha_inicio;
