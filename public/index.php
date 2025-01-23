@@ -48,6 +48,22 @@ $router->add([ 'name' => 'Crear skills',
                 'path' => '/^\/skills\/add\/$/',
                 'action' => [PortfolioController::class, 'AddSkillsAction']]);
 
+$router->add([ 'name' => 'Crear nueva red social',
+                'path' => '/^\/portfolio\/crear\/redesSociales\/$/',
+                'action' => [PortfolioController::class, 'AddRedesSocialesAction']]);
+
+$router->add([ 'name' => 'Crear proyecto',
+                'path' => '/^\/portfolio\/crear\/proyecto\/$/',
+                'action' => [PortfolioController::class, 'AddProyectosAction']]);
+
+$router->add([ 'name' => 'Crear trabajo',
+                'path' => '/^\/portfolio\/crear\/trabajo\/$/',
+                'action' => [PortfolioController::class, 'AddTrabajosAction']]);
+
+$router->add([ 'name' => 'Crear skill',
+                'path' => '/^\/portfolio\/crear\/skills\/$/',
+                'action' => [PortfolioController::class, 'AddSkillAction']]);
+
 $router->add([ 'name' => 'Modificar skills',
                 'path' => '/^\/skills\/edit\/$/',
                 'action' => [PortfolioController::class, 'EditSkillsAction']]);

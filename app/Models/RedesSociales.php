@@ -66,11 +66,12 @@ class RedesSociales extends DBAbstractModel
         $this->mensaje = 'Redes sociales agregadas';
     }
 
-    public function get(){
-        $this->query = "SELECT id, redes_socialescol, url, created_at, updated_at, usuarios_id FROM redes_sociales WHERE id_usuario = :id_usuario";
-        $this->parametros['id_usuario'] = $this->id_usuario;
+    public function get($id = " "){
+        $this->query = "SELECT * FROM redes_sociales WHERE usuarios_id = :id_usuario";
+        $this->parametros['id_usuario'] = $id;
         $this->get_results_from_query();
         $this->mensaje = 'Redes sociales obtenidas';
+        return $this->rows;
     }
 
     public function edit(){

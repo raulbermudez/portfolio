@@ -79,8 +79,9 @@ class Trabajos extends DBAbstractModel
     }
 
     /*Método para obtener los datos de la tabla trabajos*/
-    public function get() {
-        $this->query = "SELECT * FROM trabajos";
+    public function get($id = "") {
+        $this->query = "SELECT * FROM trabajos WHERE usuarios_id = :id";
+        $this->parametros['id'] = $id;
         $this->get_results_from_query();
         if (count($this->rows) > 0) {
             return $this->rows;

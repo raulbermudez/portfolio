@@ -96,3 +96,36 @@ nav ul li a svg:hover {
 a{
     text-decoration: none;
 }
+
+.flexeo{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.informacion{
+    color: black;
+    background-color: #f4f4f4;
+    padding: 0;
+    text-align: start;
+    padding: 10px;
+}
+
+.caja{
+    margin: 10px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: inline-block;
+    flex: 1 1 30%;
+}
+
+.negrita{
+    font-weight: bold;
+}
+
+h3, h2{
+    margin: 10px;
+    padding: 10px;
+}

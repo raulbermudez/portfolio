@@ -70,7 +70,17 @@ class Proyectos extends DBAbstractModel
     }
 
     /*Método para insertar datos en la tabla proyectos*/
-    public function get(){}
+    public function get($id = ""){
+        if($id != ''){
+            $this->query = "SELECT * FROM proyectos WHERE usuarios_id = :id";
+            $this->parametros['id'] = $id;
+            $this->get_results_from_query();
+            $this->mensaje = 'Proyecto encontrado';
+            return $this->rows;
+        }else{
+            $this->mensaje = 'Proyecto no encontrado';
+        }
+    }
 
     public function set(){
         $this->query = "INSERT INTO proyectos (titulo, descripcion, tecnologias, visible, created_at, updated_at, usuarios_id) VALUES (:titulo, :descripcion, :tecnologias, :visible, :created_at, :updated_at, :usuarios_id)";

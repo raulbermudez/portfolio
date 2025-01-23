@@ -57,8 +57,9 @@ class Tareas extends DBAbstractModel
     }
 
     /*Método para obtener los datos de la tabla categorias_skills*/
-    public function get() {
-        $this->query = "SELECT * FROM categorias_skills";
+    public function get($id = "") {
+        $this->query = "SELECT * FROM skills WHERE usuarios_id = :usuario_id";
+        $this->parametros["usuario_id"] = $id;
         $this->get_results_from_query();
         if (count($this->rows) > 0) {
             return $this->rows;
