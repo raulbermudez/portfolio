@@ -108,13 +108,13 @@
         require_once "cabecera_in_view.php";
     ?>
     <h3>Gestión del portfolio de <?php echo $_SESSION['nombre'] ?></h3>
-    <!-- <div class="portfolio-actions">    
+    <div class="portfolio-actions">    
     <?php
         if(!$creacion){
             echo '<a class="btn btn-create" href="/portfolio/crear/">Crear Portfolio</a>';
         }
     ?>
-    </div> -->
+    </div>
     <h3>Datos Personales</h3>
     <div class="flexeo">
         <div class="caja">
