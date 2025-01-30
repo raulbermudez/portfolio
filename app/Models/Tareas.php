@@ -69,9 +69,9 @@ class Tareas extends DBAbstractModel
     }
 
     /*Método para eliminar un trabajo en categorias_skills*/
-    public function delete() {
-        $this->query = "DELETE FROM categorias_skills WHERE usuario_id = :usuario_id";
-        $this->parametros["usuario_id"] = $this->usuarios_id;
+    public function delete($id = '') {
+        $this->query = "DELETE FROM skills WHERE id = :id";
+        $this->parametros["id"] = $id;
         $this->get_results_from_query();
         $this->mensaje = "Categoría de habilidades eliminada";
     }

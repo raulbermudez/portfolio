@@ -513,6 +513,46 @@ class PortfolioController extends BaseController
         }
     }
 
+    public function DelRedSocialAction($categoria){
+        $elementos = explode('/', $categoria);
+        $categ = end($elementos);
+        $redSocial = RedesSociales::getInstancia();
+        $redSocial->delete($categ);
+
+        // Llamamos a la función renderHTML
+        header('Location: /portfolio/');
+    }
+
+    public function DelTrabajoAction($categoria){
+        $elementos = explode('/', $categoria);
+        $categ = end($elementos);
+        $trabajo = Trabajos::getInstancia();
+        $trabajo->delete($categ);
+
+        // Llamamos a la función renderHTML
+        header('Location: /portfolio/');
+    }
+
+    public function DelProyectoAction($categoria){
+        $elementos = explode('/', $categoria);
+        $categ = end($elementos);
+        $proyecto = Proyectos::getInstancia();
+        $proyecto->delete($categ);
+
+        // Llamamos a la función renderHTML
+        header('Location: /portfolio/');
+    }
+
+    public function DelSkillAction($categoria){
+        $elementos = explode('/', $categoria);
+        $categ = end($elementos);
+        $tarea = Tareas::getInstancia();
+        $tarea->delete($categ);
+
+        // Llamamos a la función renderHTML
+        header('Location: /portfolio/');
+    }
+
     // Accion para mostrar las skills
     public function SkillsAction()
     {

@@ -92,9 +92,9 @@ class RedesSociales extends DBAbstractModel
         return $this->rows;
     }
 
-    public function delete(){
+    public function delete($id = ''){
         $this->query = "DELETE FROM redes_sociales WHERE id = :id";
-        $this->parametros['id'] = $this->id;
+        $this->parametros['id'] = $id;
         $this->get_results_from_query();
         $this->mensaje = 'Redes sociales eliminadas';
     }

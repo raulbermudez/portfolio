@@ -89,6 +89,21 @@ $router->add([ 'name' => 'Eliminar una skill',
                 'path' => '/^\/skills\/del\/[a-zA-Z]+$/',
                 'action' => [PortfolioController::class, 'DelSkillsAction']]);
 
+$router->add([ 'name' => 'Eliminar una red social',
+                'path' => '/^\/portfolio\/del\/redsocial\/[0-9]+$/',
+                'action' => [PortfolioController::class, 'DelRedSocialAction']]);
+
+$router->add([ 'name' => 'Eliminar una skill del usuario',
+                'path' => '/^\/portfolio\/del\/skill\/[0-9]+$/',
+                'action' => [PortfolioController::class, 'DelSkillAction']]);
+    
+$router->add([ 'name' => 'Eliminar un trabajo',
+                'path' => '/^\/portfolio\/del\/trabajo\/[0-9]+$/',
+                'action' => [PortfolioController::class, 'DelTrabajoAction']]);
+
+$router->add([ 'name' => 'Eliminar un proyecto',
+                'path' => '/^\/portfolio\/del\/proyecto\/[0-9]+$/',
+                'action' => [PortfolioController::class, 'DelProyectoAction']]);
 //$request = $_SERVER['REQUEST_URI'];
 // Esto limpia la ruta de la petición
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);

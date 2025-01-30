@@ -120,5 +120,10 @@ class Proyectos extends DBAbstractModel
         $this->mensaje = 'Proyecto modificado';
     }
 
-    public function delete(){}
+    public function delete($id = ''){
+        $this->query = "DELETE FROM proyectos WHERE id = :id";
+        $this->parametros['id'] = $id;
+        $this->get_results_from_query();
+        $this->mensaje = 'Proyecto eliminado';
+    }
 }

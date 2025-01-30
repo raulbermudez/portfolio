@@ -14,7 +14,7 @@ class UsuarioController extends BaseController
         $data['usuarios'] = $usuario->getAll();
 
         // Llamamos a la función renderHTML
-        $this->renderHTML('../app/views/index_test.php', $data);
+        $this->renderHTML('../app/views/index_view.php', $data);
     }
 
     // Manejo de creaciónn de usuarios en la base de datos.

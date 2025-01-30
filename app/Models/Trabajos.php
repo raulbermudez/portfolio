@@ -92,9 +92,9 @@ class Trabajos extends DBAbstractModel
     }
 
     /*Método para eliminar un trabajo en específico*/
-    public function delete() {
-        $this->query = "DELETE FROM usuarios WHERE id = :id";
-        $this->parametros['id'] = $this->id;
+    public function delete($id = '') {
+        $this->query = "DELETE FROM trabajos WHERE id = :id";
+        $this->parametros['id'] = $id;
         $this->get_results_from_query();
         $this->mensaje = 'Trabajo eliminado';
     }
