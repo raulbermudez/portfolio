@@ -14,16 +14,16 @@
     <?php 
         require_once "cabecera_in_view.php";
     ?>
-    <h3>Formulario de creacion de Red Social</h3>
+    <h3>Formulario de edicion de Red Social</h3>
     <form action="" method="post" enctype="multipart/form-data">
         <fieldset>
             <legend>Información de redes sociales</legend>
             <label for="nombre">Nombre</label>
-            <input type="text" name="nombre" id="nombre" value="<?php echo $data['nombre']?>"><?php echo $data['msjErrorNombre'] ?><br/>
+            <input type="text" name="nombre" id="nombre" value="<?php echo $data[0]['redes_socialescol']?>"><br/>
             <label for="descripcion">Url</label>
-            <input type="url" name="url" id="url"value="<?php echo $data['url']?>"><?php echo $data['msjErrorUrl'] ?><br/>
+            <input type="url" name="url" id="url"value="<?php echo $data[0]['url']?>"><br/>
         </fieldset>
-        <input type="submit" name="crear" id="enviar" value="Crear">
+        <input type="submit" name="editar" id="enviar" value="Editar">
     </form>
 </body>
 </html>

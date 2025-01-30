@@ -82,6 +82,19 @@ class Proyectos extends DBAbstractModel
         }
     }
 
+    /*Método para insertar datos en la tabla proyectos*/
+    public function getbyId($id = ""){
+        if($id != ''){
+            $this->query = "SELECT * FROM proyectos WHERE id = :id";
+            $this->parametros['id'] = $id;
+            $this->get_results_from_query();
+            $this->mensaje = 'Proyecto encontrado';
+            return $this->rows;
+        }else{
+            $this->mensaje = 'Proyecto no encontrado';
+        }
+    }
+
     public function set(){
         $this->query = "INSERT INTO proyectos (titulo, descripcion, tecnologias, visible, created_at, updated_at, usuarios_id) VALUES (:titulo, :descripcion, :tecnologias, :visible, :created_at, :updated_at, :usuarios_id)";
         $this->parametros['titulo'] = $this->titulo;
@@ -95,7 +108,17 @@ class Proyectos extends DBAbstractModel
         $this->mensaje = 'Proyecto agregado';
     }
 
-    public function edit(){}
+    public function edit($id = ""){
+        $this->query = "UPDATE proyectos SET titulo = :titulo, descripcion = :descripcion, tecnologias = :tecnologias, visible = :visible, updated_at = :updated_at WHERE id = :id";
+        $this->parametros['titulo'] = $this->titulo;
+        $this->parametros['descripcion'] = $this->descripcion;
+        $this->parametros['tecnologias'] = $this->tecnologias;
+        $this->parametros['visible'] = $this->visible;
+        $this->parametros['updated_at'] = date('Y-m-d H:i:s');
+        $this->parametros['id'] = $id;
+        $this->get_results_from_query();
+        $this->mensaje = 'Proyecto modificado';
+    }
 
     public function delete(){}
 }

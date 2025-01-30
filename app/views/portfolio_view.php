@@ -134,9 +134,9 @@
                 echo "<div class='botones'>";
                 echo "<p class='informacion'><span class='negrita'>Tecnologías empleadas:</span> " . $proyecto['tecnologias'] . "</p>";
                 echo "<div>";
-                echo '<a class="btn-edit-small" href="/portfolio/editar/' .  $proyecto["id"] . '"><span class="material-symbols-outlined">edit
+                echo '<a class="btn-edit-small" href="/portfolio/editar/proyecto/' .  $proyecto["id"] . '"><span class="material-symbols-outlined">edit
                 </span></a>';
-                echo '<a class="btn-del-small" href="/portfolio/del/' . $proyecto['id'] . '"><span class="material-symbols-outlined">delete
+                echo '<a class="btn-del-small" href="/portfolio/del/proyecto/' . $proyecto['id'] . '"><span class="material-symbols-outlined">delete
                 </span></a>';
                 echo "</div>";
                 echo "</div>";
@@ -159,9 +159,9 @@
                 echo "<div class='botones'>";
                 echo "<p class='informacion'><span class='negrita'>Url:</span> " . $redSocial['url'] . "</p>";
                 echo "<div>";
-                echo '<a class="btn-edit-small" href="/portfolio/editar/' .  $redSocial["id"] . '"><span class="material-symbols-outlined">edit
+                echo '<a class="btn-edit-small" href="/portfolio/editar/redsocial/' .  $redSocial["id"] . '"><span class="material-symbols-outlined">edit
                 </span></a>';
-                echo '<a class="btn-del-small" href="/portfolio/del/' . $redSocial['id'] . '"><span class="material-symbols-outlined">delete
+                echo '<a class="btn-del-small" href="/portfolio/del/redsocial/' . $redSocial['id'] . '"><span class="material-symbols-outlined">delete
                 </span></a>';
                 echo "</div>";
                 echo "</div>";
@@ -186,9 +186,9 @@
                 echo "<div class='botones'>";
                 echo "<p class='informacion'><span class='negrita'>Logros:</span> " . $trabajo['logros'] . "</p>";
                 echo "<div>";
-                echo '<a class="btn-edit-small" href="/portfolio/editar/' .  $trabajo["id"] . '"><span class="material-symbols-outlined">edit
+                echo '<a class="btn-edit-small" href="/portfolio/editar/trabajo/' .  $trabajo["id"] . '"><span class="material-symbols-outlined">edit
                 </span></a>';
-                echo '<a class="btn-del-small" href="/portfolio/del/' . $trabajo['id'] . '"><span class="material-symbols-outlined">delete
+                echo '<a class="btn-del-small" href="/portfolio/del/trabajo/' . $trabajo['id'] . '"><span class="material-symbols-outlined">delete
                 </span></a>';
                 echo "</div>";
                 echo "</div>";
@@ -209,9 +209,9 @@
                     echo "<div class='botones'>";
                     echo "<p class='informacion'><span class='negrita'>Skill:</span> " . $skill['categorias_skills_categoria'] . "</p>";
                     echo "<div>";
-                    echo '<a class="btn-edit-small" href="/portfolio/editar/' .  $skill["id"] . '"><span class="material-symbols-outlined">edit
+                    echo '<a class="btn-edit-small" href="/portfolio/editar/skill/' .  $skill["id"] . '"><span class="material-symbols-outlined">edit
                 </span></a>';
-                    echo '<a class="btn-del-small" href="/portfolio/del/' . $skill['id'] . '"><span class="material-symbols-outlined">delete
+                    echo '<a class="btn-del-small" href="/portfolio/del/skill/' . $skill['id'] . '"><span class="material-symbols-outlined">delete
                 </span></a>';
                     echo "</div>";
                     echo "</div>";

@@ -44,9 +44,18 @@ $router->add([ 'name' => 'Editar portfolio',
 $router->add([ 'name' => 'Gestionar skills',
                 'path' => '/^\/skills\/$/',
                 'action' => [PortfolioController::class, 'SkillsAction']]);
+
 $router->add([ 'name' => 'Crear skills',
                 'path' => '/^\/skills\/add\/$/',
                 'action' => [PortfolioController::class, 'AddSkillsAction']]);
+
+$router->add([ 'name' => 'Editar red Social',
+                'path' => '/^\/portfolio\/editar\/redsocial\/[0-9]+$/',
+                'action' => [PortfolioController::class, 'EditRedesSocialesAction']]);
+
+$router->add([ 'name' => 'Editar trabajo',
+                'path' => '/^\/portfolio\/editar\/trabajo\/[0-9]+$/',
+                'action' => [PortfolioController::class, 'EditTrabajoAction']]);
 
 $router->add([ 'name' => 'Crear nueva red social',
                 'path' => '/^\/portfolio\/crear\/redesSociales\/$/',
@@ -56,13 +65,21 @@ $router->add([ 'name' => 'Crear proyecto',
                 'path' => '/^\/portfolio\/crear\/proyecto\/$/',
                 'action' => [PortfolioController::class, 'AddProyectosAction']]);
 
+$router->add([ 'name' => 'Editar proyecto',
+                'path' => '/^\/portfolio\/editar\/proyecto\/[0-9]+$/',
+                'action' => [PortfolioController::class, 'EditProyectosAction']]);
+
 $router->add([ 'name' => 'Crear trabajo',
                 'path' => '/^\/portfolio\/crear\/trabajo\/$/',
                 'action' => [PortfolioController::class, 'AddTrabajosAction']]);
 
-$router->add([ 'name' => 'Crear skill',
+$router->add([ 'name' => 'Crear skill del usuario',
                 'path' => '/^\/portfolio\/crear\/skills\/$/',
                 'action' => [PortfolioController::class, 'AddSkillAction']]);
+
+$router->add([ 'name' => 'Editar skill del usuario',
+                'path' => '/^\/portfolio\/editar\/skill\/[0-9]+$/',
+                'action' => [PortfolioController::class, 'EditSkillAction']]);
 
 $router->add([ 'name' => 'Modificar skills',
                 'path' => '/^\/skills\/edit\/$/',

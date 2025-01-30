@@ -77,10 +77,21 @@ class Tareas extends DBAbstractModel
     }
 
     /*Métdo para editar los categorias_skills */
-    public function edit() {
-        $this->query = "UPDATE categorias_skills SET habilidades = :habilidades WHERE usuario_id = :usuario_id";
-        $this->parametros["usuario_id"] = $this->usuarios_id;
+    public function edit($id = '') {
+        $this->query = "UPDATE skills SET habilidades = :habilidades, visible = :visible, categorias_skills_categoria = :skills WHERE id = :id";
+        $this->parametros['habilidades'] = $this->habilidades;
+        $this->parametros['visible'] = $this->visible;
+        $this->parametros['skills'] = $this->skills;
+        $this->parametros['id'] = $id;
         $this->get_results_from_query();
-        $this->mensaje = "Categoría de habilidades editada";
+        $this->mensaje = 'Categoría de habilidades editada';
+    }
+
+    public function getById($id = ''){
+        $this->query = "SELECT * FROM skills WHERE id = :id";
+        $this->parametros['id'] = $id;
+        $this->get_results_from_query();
+        $this->mensaje = 'Categoría de habilidades obtenida';
+        return $this->rows;
     }
 }

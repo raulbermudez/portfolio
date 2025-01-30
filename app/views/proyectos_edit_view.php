@@ -19,13 +19,13 @@
     <fieldset>
             <legend>Información de proyectos</legend>
             <label for="titulo">Titulo</label>
-            <input type="text" name="titulo" id="titulo" value="<?php echo $data['tituloP']?>"><?php echo $data['msjErrorTituloP'] ?><br/>
+            <input type="text" name="titulo" id="titulo" value="<?php echo $data[0]['titulo']?>"><br/>
             <label for="descripcion">Descripción</label>
-            <textarea name="descripcion" id="descripcion"><?php echo $data['descripcionP']?></textarea><?php echo $data['msjErrorDescripcionP'] ?><br/>
+            <textarea name="descripcion" id="descripcion"><?php echo $data[0]['descripcion']?></textarea><br/>
             <label for="tecnologias">Tecnologias</label>
-            <input type="text" name="tecnologias" id="tecnologias" value="<?php echo $data['tecnologias']?>"><?php echo $data['msjErrorTecnologias'] ?><br/>
+            <input type="text" name="tecnologias" id="tecnologias" value="<?php echo $data[0]['tecnologias']?>"><br/>
         </fieldset>
-        <input type="submit" name="crear" id="enviar" value="Crear">
+        <input type="submit" name="editar" id="enviar" value="Guardar">
     </form>
 </body>
 </html>

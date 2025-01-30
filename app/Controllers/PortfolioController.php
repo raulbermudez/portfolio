@@ -42,7 +42,7 @@ class PortfolioController extends BaseController
             $data['descripcionT']  = $_POST['descripcion_trab'];
             $data['fechaIni'] =  $_POST['fecha_inicio'];
             $data['fechaFin'] = $_POST['fecha_final'];
-            $data['logros'] == $_POST['logros'];
+            $data['logros'] = $_POST['logros'];
             $data['habilidadesS'] = $_POST['habilidades'];
             if (isset($_POST['skills'])){
                 $data['skills'] = $_POST['skills'];
@@ -223,7 +223,7 @@ class PortfolioController extends BaseController
         }
     }
 
-    public function addProyectosAction(){
+    public function AddProyectosAction(){
         $lprocesaFormulario = false;
         $data = array();
         $data['msjErrorTituloP'] = $data['msjErrorDescripcionP'] = $data['msjErrorTecnologias'] = '';
@@ -266,7 +266,174 @@ class PortfolioController extends BaseController
         }
     }
 
-    public function addRedesSocialesAction(){
+    public function EditProyectosAction($categoria){
+        if(isset($_POST['editar'])){
+            $data = "";
+            $elementos = explode('/', $categoria);
+            $categ = end($elementos);
+            // Llamamos al get de proyectos con el id del proyecto que recibimos en la ruta
+            $data = Proyectos::getInstancia()->getbyId($categ);
+
+            $titulo = $_POST['titulo'];
+            $descripcion = $_POST['descripcion'];
+            $tecnologias = $_POST['tecnologias'];
+
+            if (!$titulo){
+                $titulo = $data[0]['titulo'];
+            }
+
+            if (!$descripcion){
+                $descripcion = $data[0]['descripcion'];
+            }
+
+            if (!$tecnologias){
+                $tecnologias =$data[0]['tecnologias'];
+            }
+
+            $proyecto = new Proyectos();
+            $proyecto->setTitulo($titulo);
+            $proyecto->setDescripcion($descripcion);
+            $proyecto->setTecnologias($tecnologias);
+            $proyecto->setVisible("on");
+            $proyecto->setIdUsuario($data[0]['usuarios_id']);
+            $proyecto->edit($categ);
+            header("Location: /portfolio/");
+        } else{
+            $data = "";
+            $elementos = explode('/', $categoria);
+            $categ = end($elementos);
+            // Llamamos al get de proyectos con el id del proyecto que recibimos en la ruta
+            $data = Proyectos::getInstancia()->getbyId($categ);
+            // Llamamos a la función renderHTML
+            $this->renderHTML('../app/views/proyectos_edit_view.php', $data);
+        }
+    }
+
+    public function EditRedesSocialesAction($categoria){
+        if(isset($_POST['editar'])){
+            $data = "";
+            $elementos = explode('/', $categoria);
+            $categ = end($elementos);
+            // Llamamos al get de proyectos con el id del proyecto que recibimos en la ruta
+            $data = RedesSociales::getInstancia()->getbyId($categ);
+
+            $nombre = $_POST['nombre'];
+            $url = $_POST['url'];
+
+            if (!$nombre){
+                $nombre = $data[0]['redes_socialescol'];
+            }
+
+            if (!$url){
+                $url = $data[0]['url'];
+            }
+
+            $redSocial = new RedesSociales();
+            $redSocial->setRedesSocialescol($nombre);
+            $redSocial->setUrl($url);
+            $redSocial->setVisible("on");
+            $redSocial->edit($categ);
+            header("Location: /portfolio/");
+        } else{
+            $data = "";
+            $elementos = explode('/', $categoria);
+            $categ = end($elementos);
+            // Llamamos al get de proyectos con el id del proyecto que recibimos en la ruta
+            $data = RedesSociales::getInstancia()->getbyId($categ);
+            // Llamamos a la función renderHTML
+            $this->renderHTML('../app/views/redesSociales_edit_view.php', $data);
+        }
+    }
+
+    public function EditSkillAction($categoria){
+        if(isset($_POST['editar'])){
+            $data = "";
+            $elementos = explode('/', $categoria);
+            $categ = end($elementos);
+            // Llamamos al get de proyectos con el id del proyecto que recibimos en la ruta
+            $data = Tareas::getInstancia()->getbyId($categ);
+
+            $habilidades = $_POST['habilidades'];
+            $skills = $_POST['skills'];
+
+            if (!$habilidades){
+                $habilidades = $data[0]['habilidades'];
+            }
+
+            if (!$skills){
+                $skills = $data[0]['categorias_skills_categoria'];
+            }
+
+            $tarea = new Tareas();
+            $tarea->setHabilidades($habilidades);
+            $tarea->setVisible("on");
+            $tarea->setSkills($skills);
+            $tarea->edit($categ);
+            header("Location: /portfolio/");
+        } else{
+            $data = "";
+            $elementos = explode('/', $categoria);
+            $categ = end($elementos);
+            // Llamamos al get de proyectos con el id del proyecto que recibimos en la ruta
+            $data = Tareas::getInstancia()->getbyId($categ);
+            $data['skills'] = Skills::getInstancia()->get();
+            // Llamamos a la función renderHTML
+            $this->renderHTML('../app/views/skill_edit_view.php', $data);
+        }
+    }
+
+    public function EditTrabajoAction($categoria){
+        if(isset($_POST['editar'])){
+            $data = "";
+            $elementos = explode('/', $categoria);
+            $categ = end($elementos);
+            // Llamamos al get de proyectos con el id del proyecto que recibimos en la ruta
+            $data = Trabajos::getInstancia()->getbyId($categ);
+
+            $titulo = $_POST['titulo'];
+            $descripcion = $_POST['descripcion'];
+            $fecha_inicio = $_POST['fecha_inicio'];
+            $fecha_final = $_POST['fecha_final'];
+            $logros = $_POST['logros'];
+
+            if (!$titulo){
+                $titulo = $data[0]['titulo'];
+            }
+
+            if (!$descripcion){
+                $descripcion = $data[0]['descripcion'];
+            }
+
+            if (!$fecha_inicio){
+                $fecha_inicio = $data[0]['fecha_inicio'];
+            }
+
+            if (!$fecha_final){
+                $fecha_final = $data[0]['fecha_final'];
+            }
+
+            $trabajo = new Trabajos();
+            $trabajo->setTitulo($titulo);
+            $trabajo->setDescripcion($descripcion);
+            $trabajo->setFechaInicio($fecha_inicio);
+            $trabajo->setFechaFinal($fecha_final);
+            $trabajo->setLogros($logros);
+            $trabajo->setVisible("on");
+            $trabajo->setIdUsuario($data[0]['usuarios_id']);
+            $trabajo->edit($categ);
+            header("Location: /portfolio/");
+        } else{
+            $data = "";
+            $elementos = explode('/', $categoria);
+            $categ = end($elementos);
+            // Llamamos al get de proyectos con el id del proyecto que recibimos en la ruta
+            $data = Trabajos::getInstancia()->getbyId($categ);
+            // Llamamos a la función renderHTML
+            $this->renderHTML('../app/views/trabajos_edit_view.php', $data);
+        }
+    }
+
+    public function AddRedesSocialesAction(){
         $lprocesaFormulario = false;
         $data = array();
         $data['msjErrorNombre'] = $data['msjErrorUrl'] = '';
@@ -303,7 +470,7 @@ class PortfolioController extends BaseController
         }
     }
 
-    public function addSkillAction(){
+    public function AddSkillAction(){
         $lprocesaFormulario = false;
         $data = array();
         $data['msjErrorHabilidadesS'] = $data['msjErrorSkills'] = '';
@@ -393,7 +560,6 @@ class PortfolioController extends BaseController
     {
         $elementos = explode('/', $categoria);
         $categ = end($elementos);
-        echo $categ;
         $skills = Skills::getInstancia();
         $skills->setCategoria($categ);
         $skills->delete();

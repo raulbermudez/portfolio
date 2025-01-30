@@ -2,6 +2,7 @@
     require_once "loged.php";
     // Recojo el valor de $data['skills'] que viene del controlador
     $skills = $data['skills'];
+    var_dump($_POST);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,21 +22,25 @@
     <fieldset>
             <legend>Información de skills</legend>
             <label for="habilidades">Habilidades</label>
-            <input type="text" name="habilidades" id="habilidades" value="<?php echo $data['habilidadesS']?>"><?php echo $data['msjErrorHabilidadesS'] ?><br/>
+            <input type="text" name="habilidades" id="habilidades" value="<?php echo $data[0]['habilidades']?>"><br/>
             <label for="skills">Skills:</label><br/>
             <?php
             if (!empty($skills)) {
                 echo '<ul id="skills">';
                 foreach ($skills as $skill) {
                     echo '<li id="categorias">';
-                    echo '<input type="radio" name="skills" value="' . htmlspecialchars($skill['categoria']) . '"> ' . htmlspecialchars($skill['categoria']);
+                    if($skill['categoria'] == $data[0]['categorias_skills_categoria']){
+                        echo '<input type="radio" name="skills" value="' . htmlspecialchars($skill['categoria']) . '" checked> ' . htmlspecialchars($skill['categoria']);
+                    }else{
+                        echo '<input type="radio" name="skills" value="' . htmlspecialchars($skill['categoria']) . '"> ' . htmlspecialchars($skill['categoria']);
+                    }
                     echo '</li>';
                 }
                 echo '</ul>';
             }
         ?>
         </fieldset>
-        <input type="submit" name="crear" id="enviar" value="Crear">
+        <input type="submit" name="editar" id="enviar" value="Editar">
     </form>
 </body>
 </html>

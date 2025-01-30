@@ -100,15 +100,27 @@ class Trabajos extends DBAbstractModel
     }
 
     /*Métdo para editar los trabajos */
-    public function edit() {
+    public function edit($id='') {
         $this->query = "UPDATE trabajos SET titulo = :titulo, descripcion = :descripcion, fecha_inicio = :fecha_inicio, fecha_final = :fecha_final, logros = :logros, updated_at = NOW() WHERE id = :id";
         $this->parametros['titulo'] = $this->titulo;
         $this->parametros['descripcion'] = $this->descripcion;
         $this->parametros['fecha_inicio'] = $this->fecha_inicio;
         $this->parametros['fecha_final'] = $this->fecha_final;
         $this->parametros['logros'] = $this->logros;
-        $this->parametros['id'] = $this->id;
+        $this->parametros['id'] = $id;
         $this->get_results_from_query();
         $this->mensaje = 'Trabajo actualizado';
+    }
+
+    public function getById($id=''){
+        $this->query = "SELECT * FROM trabajos WHERE id = :id";
+        $this->parametros['id'] = $id;
+        $this->get_results_from_query();
+        if (count($this->rows) > 0) {
+            return $this->rows;
+        } else {
+            $this->mensaje = "No hay trabajos";
+            return null;
+        }
     }
 }

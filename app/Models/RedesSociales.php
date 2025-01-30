@@ -74,14 +74,22 @@ class RedesSociales extends DBAbstractModel
         return $this->rows;
     }
 
-    public function edit(){
+    public function edit($id = ''){
         $this->query = "UPDATE redes_sociales SET redes_socialescol = :redes_socialescol, url = :url, updated_at = :updated_at WHERE id = :id";
         $this->parametros['redes_socialescol'] = $this->redes_socialescol;
         $this->parametros['url'] = $this->url;
         $this->parametros['updated_at'] = date('Y-m-d H:i:s');
-        $this->parametros['id'] = $this->id;
+        $this->parametros['id'] = $id;
         $this->get_results_from_query();
         $this->mensaje = 'Redes sociales actualizadas';
+    }
+
+    public function getById($id = ''){
+        $this->query = "SELECT * FROM redes_sociales WHERE id = :id";
+        $this->parametros['id'] = $id;
+        $this->get_results_from_query();
+        $this->mensaje = 'Redes sociales obtenidas';
+        return $this->rows;
     }
 
     public function delete(){
