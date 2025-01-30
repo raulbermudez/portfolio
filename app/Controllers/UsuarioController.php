@@ -2,22 +2,46 @@
 
 namespace App\Controllers;
 use App\Models\Usuarios;
+use App\Models\Proyectos;
 
 class UsuarioController extends BaseController
 {
     public function IndexAction()
     {
-        // Creamos una instancia de usuarios
-        $usuario = Usuarios::getInstancia();
 
-        // Alamacenamos los datos en $data
-        $data['usuarios'] = $usuario->getAll();
+        if (isset($_POST['buscar'])){
+            $filtro = $_POST['filtro'];
 
-        // Llamamos a la función renderHTML
-        $this->renderHTML('../app/views/index_view.php', $data);
+            // Creamos una instancia de usuarios
+            $usuario = Usuarios::getInstancia();
+            $tecnologias = Proyectos::getInstancia();
+    
+            $data['tecnologias'] = $tecnologias->getTecnologiasFromSearch($filtro);
+
+            // Una vez que tengo el id saco todos los usuarios con ese id
+            foreach ($data["tecnologias"] as $tecnologia => $valor){
+
+                $tecnolo = $usuario->get($valor['usuarios_id']);
+                $data['usuarios'][$valor['usuarios_id']] = $tecnolo;
+            }
+            // Llamamos a la función renderHTML
+            $this->renderHTML('../app/views/index_view.php', $data);
+        } else{
+            // Creamos una instancia de usuarios
+            $usuario = Usuarios::getInstancia();
+            $tecnologias = Proyectos::getInstancia();
+
+            // Alamacenamos los datos en $data
+            $data['usuarios'] = $usuario->getAll();
+            $data['tecnologias'] = $tecnologias->getTecnologias();
+
+            // Llamamos a la función renderHTML
+            $this->renderHTML('../app/views/index_view.php', $data);
+        }
+        
     }
 
-    // Manejo de creaciónn de usuarios en la base de datos.
+    // Manejo de creación de usuarios en la base de datos.
     public function AddAction()
     {
         $lprocesaFormulario = false;

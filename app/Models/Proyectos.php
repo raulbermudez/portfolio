@@ -126,4 +126,29 @@ class Proyectos extends DBAbstractModel
         $this->get_results_from_query();
         $this->mensaje = 'Proyecto eliminado';
     }
+
+    // Funcion para obtener todas las tecnologias de un usuario
+    public function getTecnologias() {
+        $this->query = "SELECT DISTINCT tecnologias, usuarios_id FROM proyectos";
+        $this->get_results_from_query();
+        if (count($this->rows) > 0) {
+            return $this->rows;
+        } else {
+            $this->mensaje = "No hay tecnologias";
+            return null;
+        }
+    }
+
+    // Funcion para obtenr una tecnologia que sea del filtro
+    public function getTecnologiasFromSearch($filter = ""){
+        $this->query = "SELECT DISTINCT tecnologias, usuarios_id FROM proyectos WHERE tecnologias LIKE :tecnologias";
+        $this->parametros['tecnologias'] = "%".$filter."%";
+        $this->get_results_from_query();
+        if (count($this->rows) > 0) {
+            return $this->rows;
+        } else {
+            $this->mensaje = "No hay tecnologias";
+            return null;
+        }
+    }
 }

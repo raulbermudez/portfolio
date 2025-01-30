@@ -17,7 +17,7 @@ $router->add([  'name' => 'Todos los usuarios',
                 'path' => '/^\/$/',
                 'action' => [UsuarioController::class, 'IndexAction']]);
 
-$router->add([  'name' => 'añadir',
+$router->add([  'name' => 'Añadir usuario',
                 'path' => '/^\/usuarios\/add$/',
                 'action' => [UsuarioController::class, 'AddAction']]);
 
@@ -36,10 +36,6 @@ $router->add([  'name' => 'Ver portfolios',
 $router->add([ 'name' => 'Crear portfolio',
                 'path' => '/^\/portfolio\/crear\/$/',
                 'action' => [PortfolioController::class, 'AddAction']]);
-
-$router->add([ 'name' => 'Editar portfolio',
-                'path' => '/^\/portfolio\/editar\/[0-9]+$/',
-                'action' => [PortfolioController::class, 'EditPortfolioAction']]);
 
 $router->add([ 'name' => 'Gestionar skills',
                 'path' => '/^\/skills\/$/',
@@ -68,6 +64,10 @@ $router->add([ 'name' => 'Crear proyecto',
 $router->add([ 'name' => 'Editar proyecto',
                 'path' => '/^\/portfolio\/editar\/proyecto\/[0-9]+$/',
                 'action' => [PortfolioController::class, 'EditProyectosAction']]);
+            
+$router->add([ 'name' => 'Eliminar un proyecto',
+                'path' => '/^\/portfolio\/del\/proyecto\/[0-9]+$/',
+                'action' => [PortfolioController::class, 'DelProyectoAction']]);
 
 $router->add([ 'name' => 'Crear trabajo',
                 'path' => '/^\/portfolio\/crear\/trabajo\/$/',
@@ -101,9 +101,6 @@ $router->add([ 'name' => 'Eliminar un trabajo',
                 'path' => '/^\/portfolio\/del\/trabajo\/[0-9]+$/',
                 'action' => [PortfolioController::class, 'DelTrabajoAction']]);
 
-$router->add([ 'name' => 'Eliminar un proyecto',
-                'path' => '/^\/portfolio\/del\/proyecto\/[0-9]+$/',
-                'action' => [PortfolioController::class, 'DelProyectoAction']]);
 //$request = $_SERVER['REQUEST_URI'];
 // Esto limpia la ruta de la petición
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
