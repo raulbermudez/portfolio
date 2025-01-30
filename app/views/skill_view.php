@@ -20,6 +20,9 @@
         #skills {
             list-style-type: none;
             padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         #categorias {
@@ -55,7 +58,6 @@
         }
 
         .delete-link {
-            float: right;
             margin-left: 10px;
             color: red;
             text-decoration: none;
@@ -79,7 +81,7 @@
     if (!empty($skills)) {
         echo '<ul id="skills">';
         foreach ($skills as $skill) {
-            echo '<a href="/skills/del/' . $skill['categoria'] .'" class="delete-link">Eliminar</a>' . '<li id="categorias">' . htmlspecialchars($skill['categoria']) .'</li>';
+            echo '<li id="categorias">' . htmlspecialchars($skill['categoria']) . '</li><a href="/skills/del/' . $skill['categoria'] .'" class="delete-link">Eliminar</a>';
         }
         echo '</ul>';
     } else {
