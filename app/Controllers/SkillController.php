@@ -1,6 +1,6 @@
 <?php
 namespace App\Controllers;
-use App\Models\Tareas;
+use App\Models\SkillsUsuario;
 use App\Models\Skills;
 
 class SkillController extends BaseController
@@ -29,7 +29,7 @@ class SkillController extends BaseController
             session_start();
             $id_usua = $_SESSION['id'];
             // Creo la tarea
-            $tarea = new Tareas();
+            $tarea = new SkillsUsuario();
             $tarea->setHabilidades($data['habilidadesS']);
             $tarea->setVisible("on");
             $tarea->setSkills($data['skills']);
@@ -54,7 +54,7 @@ class SkillController extends BaseController
             $elementos = explode('/', $categoria);
             $categ = end($elementos);
             // Llamamos al get de proyectos con el id del proyecto que recibimos en la ruta
-            $data = Tareas::getInstancia()->getbyId($categ);
+            $data = SkillsUsuario::getInstancia()->getbyId($categ);
 
             $habilidades = $_POST['habilidades'];
             $skills = $_POST['skills'];
@@ -67,7 +67,7 @@ class SkillController extends BaseController
                 $skills = $data[0]['categorias_skills_categoria'];
             }
 
-            $tarea = new Tareas();
+            $tarea = new SkillsUsuario();
             $tarea->setHabilidades($habilidades);
             $tarea->setVisible("on");
             $tarea->setSkills($skills);
@@ -78,7 +78,7 @@ class SkillController extends BaseController
             $elementos = explode('/', $categoria);
             $categ = end($elementos);
             // Llamamos al get de proyectos con el id del proyecto que recibimos en la ruta
-            $data = Tareas::getInstancia()->getbyId($categ);
+            $data = SkillsUsuario::getInstancia()->getbyId($categ);
             $data['skills'] = Skills::getInstancia()->get();
             // Llamamos a la función renderHTML
             $this->renderHTML('../app/views/skill_edit_view.php', $data);
@@ -88,7 +88,7 @@ class SkillController extends BaseController
     public function DelAction($categoria){
         $elementos = explode('/', $categoria);
         $categ = end($elementos);
-        $tarea = Tareas::getInstancia();
+        $tarea = SkillsUsuario::getInstancia();
         $tarea->delete($categ);
 
         // Llamamos a la función renderHTML

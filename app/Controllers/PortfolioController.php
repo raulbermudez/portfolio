@@ -4,7 +4,8 @@ use App\Models\Trabajos;
 use App\Models\RedesSociales;
 use App\Models\Proyectos;
 use App\Models\Skills;
-use App\Models\Tareas;
+use App\Models\SkillsUsuario;
+use App\Models\Usuarios;
 
 class PortfolioController extends BaseController
 {
@@ -18,7 +19,7 @@ class PortfolioController extends BaseController
         // Llamamos a que se obtengan los valores de la tabla redes_sociales que coincida con el id de usuario
         $data["redesSociales"] = RedesSociales::getInstancia()->get($_SESSION['id']);
         // Llamamos a que se obtengan los valores de la tabla tareas que coincida con el id de usuario
-        $data["tareas"] = Tareas::getInstancia()->get($_SESSION['id']);
+        $data["tareas"] = SkillsUsuario::getInstancia()->get($_SESSION['id']);
         // Llamamos a la función renderHTML
         $this->renderHTML('../app/views/portfolio_view.php', $data);
     }
@@ -134,7 +135,7 @@ class PortfolioController extends BaseController
             $redSocial->setIdUsuario($id_usua);
             $redSocial->set();
             // Creo la tarea
-            $tarea = new Tareas();
+            $tarea = new SkillsUsuario();
             $tarea->setHabilidades($data['habilidadesS']);
             $tarea->setVisible("on");
             $tarea->setSkills($data['skills']);
@@ -152,5 +153,23 @@ class PortfolioController extends BaseController
             // Llamamos a la función renderHTML
             $this->renderHTML('../app/views/portfolio_add_view.php', $data);
         }   
+    }
+
+    public function verPortfoliosAction($categoria){
+        $elementos = explode('/', $categoria);
+        $categ = end($elementos);
+
+        // Obtengo el usuario
+        $data['usuario'] = Usuarios::getInstancia()->get($categ);
+        // Llamamos a que se obtengan los valores de la tabla proyectos que coincida con el id de usuario
+        $data["proyectos"] = Proyectos::getInstancia()->getVisibleProyectos($categ);
+        // Llamamos a que se obtengan los valores de la tabla trabajos que coincida con el id de usuario
+        $data["trabajos"] = Trabajos::getInstancia()->getVisibleTrabajos($categ);
+        // Llamamos a que se obtengan los valores de la tabla redes_sociales que coincida con el id de usuario
+        $data["redesSociales"] = RedesSociales::getInstancia()->getVisibleRedesSosciales($categ);
+        // Llamamos a que se obtengan los valores de la tabla tareas que coincida con el id de usuario
+        $data["skills"] = SkillsUsuario::getInstancia()->getVisibleSkills($categ);
+        // Llamamos a la función renderHTML
+        $this->renderHTML('../app/views/portfolio_view_user.php', $data);
     }
 }

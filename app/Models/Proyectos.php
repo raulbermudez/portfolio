@@ -151,4 +151,16 @@ class Proyectos extends DBAbstractModel
             return null;
         }
     }
+
+    public function getVisibleProyectos($id = ''){
+        $this->query = "SELECT * FROM proyectos WHERE visible = 1 AND usuarios_id = :id";
+        $this->parametros['id'] = $id;
+        $this->get_results_from_query();
+        if (count($this->rows) > 0) {
+            return $this->rows;
+        } else {
+            $this->mensaje = "No hay proyectos visibles";
+            return null;
+        }
+    }
 }

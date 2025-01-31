@@ -2,7 +2,7 @@
 namespace App\Models;
 require_once "DBAbstractModel.php";
 
-class Tareas extends DBAbstractModel
+class SkillsUsuario extends DBAbstractModel
 {
     private static $instancia;
     // Patron singleton, no puedo tener dos objetos de la clase usuario
@@ -92,6 +92,14 @@ class Tareas extends DBAbstractModel
         $this->parametros['id'] = $id;
         $this->get_results_from_query();
         $this->mensaje = 'Categoría de habilidades obtenida';
+        return $this->rows;
+    }
+
+    public function getVisibleSkills($id = ''){
+        $this->query = "SELECT * FROM skills WHERE visible = 1 AND usuarios_id = :usuario_id";
+        $this->parametros['usuario_id'] = $id;
+        $this->get_results_from_query();
+        $this->mensaje = 'Categorías de habilidades visibles obtenidas';
         return $this->rows;
     }
 }

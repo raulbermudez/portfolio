@@ -49,6 +49,7 @@
                     }
                     echo '</ul>';
                 }
+                echo "<button class='portfolio'><a href='/portfolio/view/" . $usuario['id'] ."'>Ver portfolio</a></button>";
                 echo '</div>';
             }
             echo '</div>';

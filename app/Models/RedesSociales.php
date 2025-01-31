@@ -99,4 +99,12 @@ class RedesSociales extends DBAbstractModel
         $this->mensaje = 'Redes sociales eliminadas';
     }
 
+    public function getVisibleRedesSosciales($id = ''){
+        $this->query = "SELECT * FROM redes_sociales WHERE usuarios_id = :id_usuario AND visible = 1";
+        $this->parametros['id_usuario'] = $id;
+        $this->get_results_from_query();
+        $this->mensaje = 'Redes sociales obtenidas';
+        return $this->rows;
+    }
+
 }

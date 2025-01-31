@@ -106,6 +106,10 @@ $router->add([ 'name' => 'Eliminar una skill',
                 'path' => '/^\/skills\/del\/[a-zA-Z %áéíóúÁÉÍÓÚÑñ]+$/',
                 'action' => [AuthController::class, 'DelSkillAction']]);
 
+$router->add([ 'name' => 'Ver portfolios de usuario',
+                'path' => '/^\/portfolio\/view\/[0-9]+$/',
+                'action' => [PortfolioController::class, 'verPortfoliosAction']]);
+
 //$request = $_SERVER['REQUEST_URI'];
 // Esto limpia la ruta de la petición
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
