@@ -10,98 +10,15 @@
     <title>Administracion de portfolio</title>
     <link rel="stylesheet" href="<?php echo BASE_URL ?>/css/estilo.css">
     <link rel="stylesheet" href="<?php echo BASE_URL ?>/css/form-login.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=add,delete,edit" />
-    <style>
-        .portfolio-actions {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
-            text-align: center;
-            text-decoration: none;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn:hover, .btn-edit-small:hover {
-            background-color: #0056b3;
-        }
-
-        .btn-create {
-            background-color: #28a745;
-        }
-
-        .btn-create:hover {
-            background-color: #218838;
-        }
-
-        .btn-del {
-            background-color: #dc3545;
-        }
-
-        .btn-del:hover, .btn-del-small:hover {
-            background-color: #c82333;
-        }
-
-        .btn-edit-small, .btn-del-small, .btn-create-small {
-            display: inline-block;
-            padding: 5px 10px;
-            font-size: 8px;
-            text-align: center;
-            text-decoration: none;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-right: 10px;
-        }
-
-        .btn-del-small{
-            background-color: #dc3545;
-        }
-
-        .btn-create-small{
-            background-color: #f4f4f4;
-            color: black;
-        }
-
-        .botones{
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .material-symbols-outlined {
-            font-family: 'Material Symbols Outlined';
-            font-size: 16px;
-        }
-
-        a{
-            margin: 2.5px 0;
-        }
-
-        .borde{
-            border: 1px solid black;
-        }
-    </style>
 </head>
 <body>
-    <?php 
+<?php if ($perfil == ""){
         require_once "cabecera_view.php";
-    ?>
+    }else if($perfil == "usuario"){ 
+        require_once "cabecera_in_view.php";
+    }else{
+        require_once "cabecera_admin_view.php";
+    } ?>
     <h3>Gestión del portfolio de <?php echo $data['usuario']['nombre'] ?></h3>
     <div class="portfolio-actions">
     </div>

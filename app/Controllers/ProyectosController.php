@@ -116,4 +116,22 @@ class ProyectosController extends BaseController
 
         header('Location: /portfolio/');
     }
+
+    public function VisibilidadAction($categoria){
+        session_start();
+        $data = "";
+        $elementos = explode('/', $categoria);
+        $categ = end($elementos);
+        $data = Proyectos::getInstancia()->getUserId($categ);
+        
+        if(!isset($_SESSION['id']) || $_SESSION['id'] == null || $_SESSION['id'] != $data[0]['usuarios_id']){
+            header('Location: /');
+            exit();
+        }
+        
+        $proyecto = Proyectos::getInstancia();
+        $proyecto->toggleVisibility($categ);
+
+        header('Location: /portfolio/');
+    }
 }

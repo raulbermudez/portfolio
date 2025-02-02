@@ -15,7 +15,7 @@
     <title>Administracion de portfolio</title>
     <link rel="stylesheet" href="<?php echo BASE_URL ?>/css/estilo.css">
     <link rel="stylesheet" href="<?php echo BASE_URL ?>/css/form-login.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=add,delete,edit" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" />
     <style>
         .portfolio-actions {
             margin-bottom: 20px;
@@ -136,6 +136,13 @@
                 echo "<div>";
                 echo '<a class="btn-edit-small" href="/portfolio/editar/proyecto/' .  $proyecto["id"] . '"><span class="material-symbols-outlined">edit
                 </span></a>';
+                if($proyecto['visible'] == 1){
+                    echo '<a class="btn-create-small" href="/portfolio/visibilidad/proyecto/' . $proyecto['id'] . '"><span class="material-symbols-outlined">visibility_off
+                    </span></a>';
+                }else{
+                    echo '<a class="btn-create-small" href="/portfolio/visibilidad/proyecto/' . $proyecto['id'] . '"><span class="material-symbols-outlined">visibility
+                    </span></a>';
+                }
                 echo '<a class="btn-del-small" href="/portfolio/del/proyecto/' . $proyecto['id'] . '"><span class="material-symbols-outlined">delete
                 </span></a>';
                 echo "</div>";
@@ -161,6 +168,13 @@
                 echo "<div>";
                 echo '<a class="btn-edit-small" href="/portfolio/editar/redsocial/' .  $redSocial["id"] . '"><span class="material-symbols-outlined">edit
                 </span></a>';
+                if($redSocial['visible'] == 1){
+                    echo '<a class="btn-create-small" href="/portfolio/visibilidad/redSocial/' . $redSocial['id'] . '"><span class="material-symbols-outlined">visibility_off
+                    </span></a>';
+                }else{
+                    echo '<a class="btn-create-small" href="/portfolio/visibilidad/redSocial/' . $redSocial['id'] . '"><span class="material-symbols-outlined">visibility
+                    </span></a>';
+                }
                 echo '<a class="btn-del-small" href="/portfolio/del/redsocial/' . $redSocial['id'] . '"><span class="material-symbols-outlined">delete
                 </span></a>';
                 echo "</div>";
@@ -188,6 +202,13 @@
                 echo "<div>";
                 echo '<a class="btn-edit-small" href="/portfolio/editar/trabajo/' .  $trabajo["id"] . '"><span class="material-symbols-outlined">edit
                 </span></a>';
+                if($trabajo['visible'] == 1){
+                    echo '<a class="btn-create-small" href="/portfolio/visibilidad/trabajo/' . $trabajo['id'] . '"><span class="material-symbols-outlined">visibility_off
+                    </span></a>';
+                }else{
+                    echo '<a class="btn-create-small" href="/portfolio/visibilidad/trabajo/' . $trabajo['id'] . '"><span class="material-symbols-outlined">visibility
+                    </span></a>';
+                }
                 echo '<a class="btn-del-small" href="/portfolio/del/trabajo/' . $trabajo['id'] . '"><span class="material-symbols-outlined">delete
                 </span></a>';
                 echo "</div>";
@@ -211,6 +232,13 @@
                     echo "<div>";
                     echo '<a class="btn-edit-small" href="/portfolio/editar/skill/' .  $skill["id"] . '"><span class="material-symbols-outlined">edit
                 </span></a>';
+                if($skill['visible'] == 1){
+                    echo '<a class="btn-create-small" href="/portfolio/visibilidad/skill/' . $skill['id'] . '"><span class="material-symbols-outlined">visibility_off
+                    </span></a>';
+                }else{
+                    echo '<a class="btn-create-small" href="/portfolio/visibilidad/skill/' . $skill['id'] . '"><span class="material-symbols-outlined">visibility
+                    </span></a>';
+                }
                     echo '<a class="btn-del-small" href="/portfolio/del/skill/' . $skill['id'] . '"><span class="material-symbols-outlined">delete
                 </span></a>';
                     echo "</div>";

@@ -110,4 +110,22 @@ class SkillController extends BaseController
         // Llamamos a la función renderHTML
         header('Location: /portfolio/');
     }
+
+    public function VisibilidadAction($categoria){
+        session_start();
+        $data = "";
+        $elementos = explode('/', $categoria);
+        $categ = end($elementos);
+        $data = SkillsUsuario::getInstancia()->getUserId($categ);
+        
+        if(!isset($_SESSION['id']) || $_SESSION['id'] == null || $_SESSION['id'] != $data[0]['usuarios_id']){
+            header('Location: /');
+            exit();
+        }
+        
+        $proyecto = SkillsUsuario::getInstancia();
+        $proyecto->toggleVisibility($categ);
+
+        header('Location: /portfolio/');
+    }
 }

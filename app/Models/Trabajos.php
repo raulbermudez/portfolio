@@ -147,4 +147,35 @@ class Trabajos extends DBAbstractModel
             return null;
         }
     }
+
+    public function getVisibility($id = '') {
+        if ($id != '') {
+            $this->query = "SELECT visible FROM trabajos WHERE id = :id";
+            $this->parametros['id'] = $id;
+            $this->get_results_from_query();
+            if (count($this->rows) > 0) {
+                return $this->rows[0]['visible'] == 1 ? 'Visible' : 'No Visible';
+            } else {
+                $this->mensaje = 'Proyecto no encontrado';
+                return null;
+            }
+        } else {
+            $this->mensaje = 'ID del proyecto no proporcionado';
+            return null;
+        }
+    }
+
+    public function toggleVisibility($id = '') {
+        if ($id != '') {
+            $currentVisibility = $this->getVisibility($id);
+            $newVisibility = ($currentVisibility == 'Visible') ? 0 : 1;
+            $this->query = "UPDATE trabajos SET visible = :visible WHERE id = :id";
+            $this->parametros['visible'] = $newVisibility;
+            $this->parametros['id'] = $id;
+            $this->get_results_from_query();
+            $this->mensaje = 'Visibilidad del proyecto cambiada';
+        } else {
+            $this->mensaje = 'ID del proyecto no proporcionado';
+        }
+    }
 }

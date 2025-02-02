@@ -109,6 +109,22 @@ $router->add([ 'name' => 'Ver portfolios de usuario',
                 'path' => '/^\/portfolio\/view\/[0-9]+$/',
                 'action' => [PortfolioController::class, 'verPortfoliosAction']]);
 
+$router->add([ 'name' => 'Para cambiar la visibilidad del proyecto',
+                'path' => '/^\/portfolio\/visibilidad\/proyecto\/[0-9]+$/',
+                'action' => [ProyectosController::class, 'VisibilidadAction']]); 
+
+$router->add([ 'name' => 'Para cambiar la visibilidad del trabajo',
+                'path' => '/^\/portfolio\/visibilidad\/trabajo\/[0-9]+$/',
+                'action' => [TrabajosController::class, 'VisibilidadAction']]); 
+
+$router->add([ 'name' => 'Para cambiar la visibilidad de las skills',
+                'path' => '/^\/portfolio\/visibilidad\/skill\/[0-9]+$/',
+                'action' => [SkillController::class, 'VisibilidadAction']]); 
+
+$router->add([ 'name' => 'Para cambiar la visibilidad de las redes sociales',
+                'path' => '/^\/portfolio\/visibilidad\/redSocial\/[0-9]+$/',
+                'action' => [RedSocialController::class, 'VisibilidadAction']]); 
+
 //$request = $_SERVER['REQUEST_URI'];
 // Esto limpia la ruta de la petición
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
