@@ -102,4 +102,16 @@ class SkillsUsuario extends DBAbstractModel
         $this->mensaje = 'Categorías de habilidades visibles obtenidas';
         return $this->rows;
     }
+
+    public function getUserId($id = ''){
+        $this->query = "SELECT * FROM skills WHERE id = :id";
+        $this->parametros['id'] = $id;
+        $this->get_results_from_query();
+        if (count($this->rows) > 0) {
+            return $this->rows;
+        } else {
+            $this->mensaje = "No hay proyectos";
+            return null;
+        }
+    }
 }

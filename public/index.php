@@ -74,7 +74,6 @@ $router->add([ 'name' => 'Editar trabajo',
                 'path' => '/^\/portfolio\/editar\/trabajo\/[0-9]+$/',
                 'action' => [TrabajosController::class, 'EditAction']]);
 
-
 $router->add([ 'name' => 'Eliminar un trabajo',
                 'path' => '/^\/portfolio\/del\/trabajo\/[0-9]+$/',
                 'action' => [TrabajosController::class, 'DelAction']]);

@@ -43,7 +43,7 @@
                     echo '<ul class="tecnologias">';
                     echo "<p class='parrafo'>Tecnologias:</p>";
                     foreach ($data['tecnologias'] as $tecnologia) {
-                        if ($tecnologia['usuarios_id'] == $usuario['id']) {
+                        if ($tecnologia['usuarios_id'] == $usuario['id'] && $tecnologia['tecnologias'] != null) {
                             echo '<li>' . htmlspecialchars($tecnologia['tecnologias']) . '</li>';
                         }
                     }

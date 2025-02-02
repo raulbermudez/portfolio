@@ -135,4 +135,16 @@ class Trabajos extends DBAbstractModel
             return null;
         }
     }
+
+    public function getUserId($id = ''){
+        $this->query = "SELECT * FROM trabajos WHERE id = :id";
+        $this->parametros['id'] = $id;
+        $this->get_results_from_query();
+        if (count($this->rows) > 0) {
+            return $this->rows;
+        } else {
+            $this->mensaje = "No hay proyectos";
+            return null;
+        }
+    }
 }

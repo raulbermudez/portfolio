@@ -50,12 +50,18 @@ class AuthController extends BaseController
     // Accion para eliminar una skill
     public function DelSkillAction($categoria)
     {
+        // Validamos que el usuario de la sesión sea administrador
+        session_start();
+        if (!isset($_SESSION['perfil_usuario']) || $_SESSION['perfil_usuario'] !== 'admin') {
+            // Si no es administrador, redirigimos a una página de error o login
+            header('Location: /');
+            exit();
+        }
         $elementos = explode('/', $categoria);
         $categ = end($elementos);
         $skills = Skills::getInstancia();
         $skills->setCategoria($categ);
         $skills->delete();
-
         // Volvemos a mostrar las skills
         header('Location: /skills/');
     }

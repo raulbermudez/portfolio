@@ -42,6 +42,15 @@ class RedSocialController extends BaseController
     }
 
     public function EditAction($categoria){
+        session_start();
+        $data = "";
+        $elementos = explode('/', $categoria);
+        $categ = end($elementos);
+        $data = RedesSociales::getInstancia()->getUserId($categ);
+        if(!isset($_SESSION['id']) || $_SESSION['id'] != $data[0]['usuarios_id']){
+            header('Location: /');
+        }
+
         if(isset($_POST['editar'])){
             $data = "";
             $elementos = explode('/', $categoria);
@@ -78,8 +87,17 @@ class RedSocialController extends BaseController
     }
 
     public function DelAction($categoria){
+
+        session_start();
+        $data = "";
         $elementos = explode('/', $categoria);
         $categ = end($elementos);
+        $data = RedesSociales::getInstancia()->getUserId($categ);
+        
+        if(!isset($_SESSION['id']) || $_SESSION['id'] == null || $_SESSION['id'] != $data[0]['usuarios_id']){
+            header('Location: /');
+            exit();
+        }
         $redSocial = RedesSociales::getInstancia();
         $redSocial->delete($categ);
 
