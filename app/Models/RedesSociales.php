@@ -66,6 +66,7 @@ class RedesSociales extends DBAbstractModel
         $this->mensaje = 'Redes sociales agregadas';
     }
 
+    /*Métdodo para obtener una red social */
     public function get($id = " "){
         $this->query = "SELECT * FROM redes_sociales WHERE usuarios_id = :id_usuario";
         $this->parametros['id_usuario'] = $id;
@@ -74,6 +75,7 @@ class RedesSociales extends DBAbstractModel
         return $this->rows;
     }
 
+    /*Método para editar datos en la tabla redes_sociales*/
     public function edit($id = ''){
         $this->query = "UPDATE redes_sociales SET redes_socialescol = :redes_socialescol, url = :url, updated_at = :updated_at WHERE id = :id";
         $this->parametros['redes_socialescol'] = $this->redes_socialescol;
@@ -84,6 +86,7 @@ class RedesSociales extends DBAbstractModel
         $this->mensaje = 'Redes sociales actualizadas';
     }
 
+    /*Método para obtener una red social por su id */
     public function getById($id = ''){
         $this->query = "SELECT * FROM redes_sociales WHERE id = :id";
         $this->parametros['id'] = $id;
@@ -92,13 +95,15 @@ class RedesSociales extends DBAbstractModel
         return $this->rows;
     }
 
+    /*Método para eliminar una red social */
     public function delete($id = ''){
-        $this->query = "DELETE FROM redes_sociales WHERE id = :id";
-        $this->parametros['id'] = $id;
+        $this->query = "DELETE FROM redes_sociales WHERE usuarios_id = :usuarios_id";
+        $this->parametros['usuarios_id'] = $id;
         $this->get_results_from_query();
         $this->mensaje = 'Redes sociales eliminadas';
     }
 
+    /* Función para obtenr las redes_sociales visibles */
     public function getVisibleRedesSosciales($id = ''){
         $this->query = "SELECT * FROM redes_sociales WHERE usuarios_id = :id_usuario AND visible = 1";
         $this->parametros['id_usuario'] = $id;
@@ -107,6 +112,7 @@ class RedesSociales extends DBAbstractModel
         return $this->rows;
     }
 
+    /* Función para obtener las redes_sociales de un usuario */
     public function getUserId($id = ''){
         $this->query = "SELECT * FROM redes_sociales WHERE id = :id";
         $this->parametros['id'] = $id;
@@ -119,6 +125,7 @@ class RedesSociales extends DBAbstractModel
         }
     }
 
+    // Funcion para obtener la visibilidad de una red social
     public function getVisibility($id = '') {
         if ($id != '') {
             $this->query = "SELECT visible FROM redes_sociales WHERE id = :id";
@@ -136,6 +143,7 @@ class RedesSociales extends DBAbstractModel
         }
     }
 
+    // Funcion para cambiar la visibilidad de una red social
     public function toggleVisibility($id = '') {
         if ($id != '') {
             $currentVisibility = $this->getVisibility($id);

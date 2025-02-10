@@ -11,22 +11,15 @@ class PortfolioController extends BaseController
 {
     public function GestionAction()
     {
-        session_start();
-        // Llamamos a que se obtengan los valores de la tabla proyectos que coincida con el id de usuario
-        $data["proyectos"] = Proyectos::getInstancia()->get($_SESSION['id']);
-        // Llamamos a que se obtengan los valores de la tabla trabajos que coincida con el id de usuario
-        $data["trabajos"] = Trabajos::getInstancia()->get($_SESSION['id']);
-        // Llamamos a que se obtengan los valores de la tabla redes_sociales que coincida con el id de usuario
-        $data["redesSociales"] = RedesSociales::getInstancia()->get($_SESSION['id']);
-        // Llamamos a que se obtengan los valores de la tabla tareas que coincida con el id de usuario
-        $data["tareas"] = SkillsUsuario::getInstancia()->get($_SESSION['id']);
+        // Obtengo todos los datos a traves del usuario
+        $data["usuario"] = Usuarios::getInstancia()->get($_SESSION['id']);
         // Llamamos a la función renderHTML
         $this->renderHTML('../app/views/portfolio_view.php', $data);
     }
     
     // Accion para añadir un nuevo portfolio
     public function AddAction()
-    {
+    {   
         $lprocesaFormulario = false;
         $data = array();
         $data['msjErrorTituloP'] = $data['msjErrorDescripcionP'] = $data['msjErrorTecnologias'] = $data['msjErrorNombre'] = $data['msjErrorUrl'] 
@@ -45,6 +38,8 @@ class PortfolioController extends BaseController
             $data['fechaFin'] = $_POST['fecha_final'];
             $data['logros'] = $_POST['logros'];
             $data['habilidadesS'] = $_POST['habilidades'];
+
+            // Realizo la comprobación de los datos
             if (isset($_POST['skills'])){
                 $data['skills'] = $_POST['skills'];
             } else{
@@ -106,8 +101,8 @@ class PortfolioController extends BaseController
             }
         }
 
+        // Si no hay ningun error empiezo a introducir los datos
         if($lprocesaFormulario){
-            session_start();
             $id_usua = $_SESSION['id'];
             // Creo el trabajo
             $trabajo = new Trabajos();
@@ -155,21 +150,32 @@ class PortfolioController extends BaseController
         }   
     }
 
+    // Funcion para ver el portfolio segun el id del usuario
     public function verPortfoliosAction($categoria){
         $elementos = explode('/', $categoria);
         $categ = end($elementos);
 
-        // Obtengo el usuario
+        // Obtengo el usuario y por defecto todos los trabajos
         $data['usuario'] = Usuarios::getInstancia()->get($categ);
-        // Llamamos a que se obtengan los valores de la tabla proyectos que coincida con el id de usuario
-        $data["proyectos"] = Proyectos::getInstancia()->getVisibleProyectos($categ);
-        // Llamamos a que se obtengan los valores de la tabla trabajos que coincida con el id de usuario
-        $data["trabajos"] = Trabajos::getInstancia()->getVisibleTrabajos($categ);
-        // Llamamos a que se obtengan los valores de la tabla redes_sociales que coincida con el id de usuario
-        $data["redesSociales"] = RedesSociales::getInstancia()->getVisibleRedesSosciales($categ);
-        // Llamamos a que se obtengan los valores de la tabla tareas que coincida con el id de usuario
-        $data["skills"] = SkillsUsuario::getInstancia()->getVisibleSkills($categ);
         // Llamamos a la función renderHTML
         $this->renderHTML('../app/views/portfolio_view_user.php', $data);
+    }
+
+    // Funcion para eliminar el portfolio
+    public function DelPortfolioAction(){
+            $id_usua = $_SESSION['id'];
+            // Elimino el trabajo
+            $trabajo = new Trabajos();
+            $trabajo->delete($id_usua);
+            // Elimino el proyecto
+            $proyecto = new Proyectos();
+            $proyecto->delete($id_usua);
+            // Elimino la red social
+            $redSocial = new RedesSociales();
+            $redSocial->delete($id_usua);
+            // Elimino la tarea
+            $tarea = new SkillsUsuario();
+            $tarea->delete($id_usua);
+            header('Location: /portfolio/');
     }
 }

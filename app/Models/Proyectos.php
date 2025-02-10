@@ -95,6 +95,7 @@ class Proyectos extends DBAbstractModel
         }
     }
 
+    /*Método para insertar datos en la tabla proyectos*/
     public function set(){
         $this->query = "INSERT INTO proyectos (titulo, descripcion, tecnologias, visible, created_at, updated_at, usuarios_id) VALUES (:titulo, :descripcion, :tecnologias, :visible, :created_at, :updated_at, :usuarios_id)";
         $this->parametros['titulo'] = $this->titulo;
@@ -108,6 +109,7 @@ class Proyectos extends DBAbstractModel
         $this->mensaje = 'Proyecto agregado';
     }
 
+    /*Método para modificar datos en la tabla proyectos*/
     public function edit($id = ""){
         $this->query = "UPDATE proyectos SET titulo = :titulo, descripcion = :descripcion, tecnologias = :tecnologias, visible = :visible, updated_at = :updated_at WHERE id = :id";
         $this->parametros['titulo'] = $this->titulo;
@@ -120,9 +122,10 @@ class Proyectos extends DBAbstractModel
         $this->mensaje = 'Proyecto modificado';
     }
 
+    /*Método para eliminar datos en la tabla proyectos*/
     public function delete($id = ''){
-        $this->query = "DELETE FROM proyectos WHERE id = :id";
-        $this->parametros['id'] = $id;
+        $this->query = "DELETE FROM proyectos WHERE usuarios_id = :usuarios_id";
+        $this->parametros['usuarios_id'] = $id;
         $this->get_results_from_query();
         $this->mensaje = 'Proyecto eliminado';
     }
@@ -152,6 +155,7 @@ class Proyectos extends DBAbstractModel
         }
     }
 
+    // Funcion para obtener todos los proyectos visibles
     public function getVisibleProyectos($id = ''){
         $this->query = "SELECT * FROM proyectos WHERE visible = 1 AND usuarios_id = :id";
         $this->parametros['id'] = $id;
@@ -164,6 +168,7 @@ class Proyectos extends DBAbstractModel
         }
     }
 
+    // Funcion para obtener todos los proyectos de un usuario
     public function getUserId($id = ''){
         $this->query = "SELECT * FROM proyectos WHERE id = :id";
         $this->parametros['id'] = $id;
@@ -176,6 +181,7 @@ class Proyectos extends DBAbstractModel
         }
     }
 
+    // Funcion para obtener la visibilidad de un proyecto
     public function getVisibility($id = '') {
         if ($id != '') {
             $this->query = "SELECT visible FROM proyectos WHERE id = :id";
@@ -193,6 +199,7 @@ class Proyectos extends DBAbstractModel
         }
     }
 
+    // Funcion para cambiar la visibilidad de un proyecto
     public function toggleVisibility($id = '') {
         if ($id != '') {
             $currentVisibility = $this->getVisibility($id);

@@ -4,6 +4,7 @@ use App\Models\Trabajos;
 
 class TrabajosController extends BaseController
 {
+    // Funcion para añadir un trabajo
     public function AddAction()
     {
         // Valido el formulario
@@ -11,6 +12,7 @@ class TrabajosController extends BaseController
         $data = array();
         $data['msjErrorTituloT'] = $data['msjErrorDescripcionT'] = $data['msjErrorTecnologias'] = $data['msjErrorFechaIni'] = $data['msjErrorFechaFin'] = '';
         $data['tituloT'] = $data['descripcionT'] = $data['tecnologias'] = $data['logros'] = $data['fechaIni'] = $data['fechaFin'] = '';
+        // Compruebo si se ha enviado el formulario
         if (isset($_POST['crear'])){
             // Obtengo todos los valores y los guardo en variables
             $data['tituloT'] = $_POST['titulo'];
@@ -19,6 +21,8 @@ class TrabajosController extends BaseController
             $data['fechaIni'] =  $_POST['fecha_inicio'];
             $data['fechaFin'] = $_POST['fecha_final'];
             $lprocesaFormulario = true;
+
+            // Compruebo que los campos no estén vacíos
             if ($data['tituloT'] === "") {
                 $lprocesaFormulario = false;
                 $data['msjErrorTituloT'] = "* El título del proyecto no puede estar vacío";
@@ -46,9 +50,8 @@ class TrabajosController extends BaseController
             }
         }
         
-
+        // Si se ha enviado el formulario y los datos son correctos
         if($lprocesaFormulario){
-            session_start();
             $id_usua = $_SESSION['id'];
             // Creo el trabajo
             $trabajo = new Trabajos();
@@ -67,16 +70,17 @@ class TrabajosController extends BaseController
         }
     }
 
+    // Funcion para editar un trabajo
     public function EditAction($categoria){
-        session_start();
         $data = "";
         $elementos = explode('/', $categoria);
         $categ = end($elementos);
         $data = Trabajos::getInstancia()->getUserId($categ);
-        if(!isset($_SESSION['id']) || $_SESSION['id'] != $data[0]['usuarios_id']){
+        if($_SESSION['id'] != $data[0]['usuarios_id']){
             header('Location: /');
         }
 
+        // Comprobamos si se ha enviado el formulario
         if(isset($_POST['editar'])){
             $data = "";
             $elementos = explode('/', $categoria);
@@ -90,6 +94,7 @@ class TrabajosController extends BaseController
             $fecha_final = $_POST['fecha_final'];
             $logros = $_POST['logros'];
 
+            // Comprobamos si los campos están vacíos
             if (!$titulo){
                 $titulo = $data[0]['titulo'];
             }
@@ -106,6 +111,7 @@ class TrabajosController extends BaseController
                 $fecha_final = $data[0]['fecha_final'];
             }
 
+            // Creamos el proyecto
             $trabajo = new Trabajos();
             $trabajo->setTitulo($titulo);
             $trabajo->setDescripcion($descripcion);
@@ -127,17 +133,19 @@ class TrabajosController extends BaseController
         }
     }
 
+    // Funcion para eliminar un trabajo
     public function DelAction($categoria){
-        session_start();
         $data = "";
         $elementos = explode('/', $categoria);
         $categ = end($elementos);
         $data = Trabajos::getInstancia()->getUserId($categ);
         
-        if(!isset($_SESSION['id']) || $_SESSION['id'] == null || $_SESSION['id'] != $data[0]['usuarios_id']){
+        if($_SESSION['id'] != $data[0]['usuarios_id']){
             header('Location: /');
             exit();
         }
+
+        // Eliminamos el proyecto
         $elementos = explode('/', $categoria);
         $categ = end($elementos);
         $trabajo = Trabajos::getInstancia();
@@ -147,17 +155,19 @@ class TrabajosController extends BaseController
         header('Location: /portfolio/');
     }
 
+    // Funcion para cambiar la visibilidad de un trabajo
     public function VisibilidadAction($categoria){
-        session_start();
         $data = "";
         $elementos = explode('/', $categoria);
         $categ = end($elementos);
         $data = Trabajos::getInstancia()->getUserId($categ);
         
-        if(!isset($_SESSION['id']) || $_SESSION['id'] == null || $_SESSION['id'] != $data[0]['usuarios_id']){
+        if($_SESSION['id'] != $data[0]['usuarios_id']){
             header('Location: /');
             exit();
         }
+
+        // Cambiamos la visibilidad del proyecto
         
         $proyecto = Trabajos::getInstancia();
         $proyecto->toggleVisibility($categ);

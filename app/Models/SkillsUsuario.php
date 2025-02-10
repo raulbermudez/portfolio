@@ -70,8 +70,8 @@ class SkillsUsuario extends DBAbstractModel
 
     /*Método para eliminar un trabajo en categorias_skills*/
     public function delete($id = '') {
-        $this->query = "DELETE FROM skills WHERE id = :id";
-        $this->parametros["id"] = $id;
+        $this->query = "DELETE FROM skills WHERE usuarios_id = :usuarios_id";
+        $this->parametros["usuarios_id"] = $id;
         $this->get_results_from_query();
         $this->mensaje = "Categoría de habilidades eliminada";
     }
@@ -87,6 +87,7 @@ class SkillsUsuario extends DBAbstractModel
         $this->mensaje = 'Categoría de habilidades editada';
     }
 
+    // Metofo para obtener skill por su id
     public function getById($id = ''){
         $this->query = "SELECT * FROM skills WHERE id = :id";
         $this->parametros['id'] = $id;
@@ -95,6 +96,7 @@ class SkillsUsuario extends DBAbstractModel
         return $this->rows;
     }
 
+    // Método para obtener las skills visibles de un usuario
     public function getVisibleSkills($id = ''){
         $this->query = "SELECT * FROM skills WHERE visible = 1 AND usuarios_id = :usuario_id";
         $this->parametros['usuario_id'] = $id;
@@ -103,6 +105,7 @@ class SkillsUsuario extends DBAbstractModel
         return $this->rows;
     }
 
+    // Método para obtener las skills de un usuario
     public function getUserId($id = ''){
         $this->query = "SELECT * FROM skills WHERE id = :id";
         $this->parametros['id'] = $id;
@@ -115,6 +118,7 @@ class SkillsUsuario extends DBAbstractModel
         }
     }
 
+    // Método para obtener las visibilidad de las skills
     public function getVisibility($id = '') {
         if ($id != '') {
             $this->query = "SELECT visible FROM skills WHERE id = :id";
@@ -132,6 +136,7 @@ class SkillsUsuario extends DBAbstractModel
         }
     }
 
+    // Método para cambiar la visibilidad de las skills
     public function toggleVisibility($id = '') {
         if ($id != '') {
             $currentVisibility = $this->getVisibility($id);

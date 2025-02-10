@@ -19,15 +19,15 @@
         require_once "cabecera_admin_view.php";
     } ?>
     <h1>Portfolios visibles</h1>
-    <form action="" method="post">
+    <form action="" method="get">
         <div class="search-bar">
-            <input type="text" name="filtro" placeholder="Buscar portfolios...">
-            <button type="submit" name="buscar" id="buscar">Buscar</button>
+            <input type="text" name="filtro" placeholder="Buscar portfolios..." value="<?php echo $data['filtro']; ?>">
+            <button type="submit" id="buscar">Buscar</button>
         </div>
     </form>
 
     <?php
-        if (isset($data['usuarios']) && is_array($data['usuarios'])) {
+        if (isset($data['usuarios']) && is_array($data['usuarios'])  && $data['usuarios'] != null) {
             echo '<div class="usuarios-container">';
             foreach ($data['usuarios'] as $usuario) {
                 if ($usuario['visible'] == 0) {
@@ -37,7 +37,7 @@
                 }
                 echo '<div class="usuario-tarjeta">';
                 echo '<h2>' . htmlspecialchars($usuario['nombre']) . ' ' . htmlspecialchars($usuario['apellidos']) . '</h2>';
-                echo '<img class="fotos" src="./img/' . htmlspecialchars($usuario['foto']) . '" alt="Foto de ' . htmlspecialchars($usuario['nombre']) . '">';
+                echo '<img class="fotos" src="./img/' . $usuario['foto'] . '" alt="Foto de ' . htmlspecialchars($usuario['nombre']) . '">';
                 echo '<p class="parrafo">Email: ' . htmlspecialchars($usuario['email']) . '</p>';
                 if (isset($data['tecnologias']) && is_array($data['tecnologias'])) {
                     echo '<ul class="tecnologias">';
@@ -54,7 +54,7 @@
             }
             echo '</div>';
         } else {
-            echo '<p>No hay usuarios disponibles.</p>';
+            echo '<p class="parrafo-2">No hay usuarios disponibles.</p>';
         }
     ?>
 

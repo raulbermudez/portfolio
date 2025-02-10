@@ -4,17 +4,20 @@ use App\Models\Proyectos;
 
 class ProyectosController extends BaseController
 {
+    // Funcion para añadir un proyecto
     public function AddAction(){
         $lprocesaFormulario = false;
         $data = array();
         $data['msjErrorTituloP'] = $data['msjErrorDescripcionP'] = $data['msjErrorTecnologias'] = '';
         $data['tituloP'] = $data['descripcionP'] = $data['tecnologias']  = '';
+        // Compruebo si se ha pulsado el botón de crear
         if (isset($_POST['crear'])){
             // Obtengo todos los valores y los guardo en variables
             $data['tituloP'] = $_POST['titulo'];
             $data['descripcionP'] = $_POST['descripcion'];
             $data['tecnologias'] = $_POST['tecnologias'];
             $lprocesaFormulario = true;
+            // Compruebo que los campos no estén vacíos
             if ($data['tituloP'] === "") {
                 $lprocesaFormulario = false;
                 $data['msjErrorTituloP'] = "* El título del proyecto no puede estar vacío";
@@ -29,8 +32,8 @@ class ProyectosController extends BaseController
             }
         }
 
+        // Si se ha pulsado el botón de crear y los campos no están vacíos introduzco los datos en la base de datos
         if($lprocesaFormulario){
-            session_start();
             $id_usua = $_SESSION['id'];
             // Creo el proyecto
             $proyecto = new Proyectos();
@@ -47,16 +50,17 @@ class ProyectosController extends BaseController
         }
     }
 
+    // Función para editar los datos
     public function EditAction($categoria){
-        session_start();
         $data = "";
         $elementos = explode('/', $categoria);
         $categ = end($elementos);
         $data = Proyectos::getInstancia()->getUserId($categ);
-        if(!isset($_SESSION['id']) || $_SESSION['id'] != $data[0]['usuarios_id']){
+        if( $_SESSION['id'] != $data[0]['usuarios_id']){
             header('Location: /');
         }
 
+        // Si he pulsado en editar
         if(isset($_POST['editar'])){
             $data = "";
             $elementos = explode('/', $categoria);
@@ -68,6 +72,7 @@ class ProyectosController extends BaseController
             $descripcion = $_POST['descripcion'];
             $tecnologias = $_POST['tecnologias'];
 
+            // Valido los campos
             if (!$titulo){
                 $titulo = $data[0]['titulo'];
             }
@@ -80,6 +85,7 @@ class ProyectosController extends BaseController
                 $tecnologias =$data[0]['tecnologias'];
             }
 
+            // Creo el proyecto
             $proyecto = new Proyectos();
             $proyecto->setTitulo($titulo);
             $proyecto->setDescripcion($descripcion);
@@ -89,6 +95,7 @@ class ProyectosController extends BaseController
             $proyecto->edit($categ);
             header("Location: /portfolio/");
         } else{
+            // Muestro la vista
             $data = "";
             $elementos = explode('/', $categoria);
             $categ = end($elementos);
@@ -99,36 +106,39 @@ class ProyectosController extends BaseController
         }
     }
 
+    // Funcion para eliminar un proyecto
     public function DelAction($categoria){
-        session_start();
         $data = "";
         $elementos = explode('/', $categoria);
         $categ = end($elementos);
         $data = Proyectos::getInstancia()->getUserId($categ);
         
-        if(!isset($_SESSION['id']) || $_SESSION['id'] == null || $_SESSION['id'] != $data[0]['usuarios_id']){
+        if($_SESSION['id'] != $data[0]['usuarios_id']){
             header('Location: /');
             exit();
         }
         
+        // Elimino el proyecto
         $proyecto = Proyectos::getInstancia();
         $proyecto->delete($categ);
 
         header('Location: /portfolio/');
     }
 
+
+    // Funcion para cambiar la visibilidad de un proyecto
     public function VisibilidadAction($categoria){
-        session_start();
         $data = "";
         $elementos = explode('/', $categoria);
         $categ = end($elementos);
         $data = Proyectos::getInstancia()->getUserId($categ);
         
-        if(!isset($_SESSION['id']) || $_SESSION['id'] == null || $_SESSION['id'] != $data[0]['usuarios_id']){
+        if($_SESSION['id'] != $data[0]['usuarios_id']){
             header('Location: /');
             exit();
         }
         
+        // Cambio la visibilidad del proyecto
         $proyecto = Proyectos::getInstancia();
         $proyecto->toggleVisibility($categ);
 

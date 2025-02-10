@@ -11,6 +11,7 @@ define("DBUSER", $_ENV['DBUSER']);
 define("DBPASS", $_ENV['DBPASS']);
 define("DBNAME", $_ENV['DBNAME']);
 define("DBPORT", 3306);
+define("SMTP_SERVER", $_ENV['SMTP_SERVER']);
 
 define("BASE_URL", "http://portfolio.local");
 

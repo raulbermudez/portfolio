@@ -53,7 +53,7 @@ class Skills extends DBAbstractModel
     /*Métdo para editar los categorias_skills */
     public function edit() {
         $this->query = "UPDATE categorias_skills SET categoria = :categoria WHERE categoria = :categoria_anterior";
-        $this->parametros[":categoria"] = $this->categoria;
+        $this->parametros["categoria"] = $this->categoria;
         $this->get_results_from_query();
         $this->mensaje = "Categoría editada";
         

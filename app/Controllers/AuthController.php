@@ -5,7 +5,7 @@ use App\Models\Skills;
 
 class AuthController extends BaseController
 {
-    // Accion para mostrar las skills
+    // Accion para mostrar las skills en la parte del administrador
     public function SkillAction()
     {
         // Obtengo del modelo Skills los datos de las skills
@@ -18,7 +18,7 @@ class AuthController extends BaseController
         $this->renderHTML('../app/views/skill_view.php', $data);
     }
 
-    // Accion para añadir una skill
+    // Accion para añadir una skill desde el administrador
     public function AddSkillAction()
     {
         $lprocesaFormulario = false;
@@ -47,12 +47,10 @@ class AuthController extends BaseController
         }
     }
 
-    // Accion para eliminar una skill
+    // Accion para eliminar una skill desde la capa del administrador
     public function DelSkillAction($categoria)
     {
-        // Validamos que el usuario de la sesión sea administrador
-        session_start();
-        if (!isset($_SESSION['perfil_usuario']) || $_SESSION['perfil_usuario'] !== 'admin') {
+        if ($_SESSION['perfil_usuario'] !== 'admin') {
             // Si no es administrador, redirigimos a una página de error o login
             header('Location: /');
             exit();

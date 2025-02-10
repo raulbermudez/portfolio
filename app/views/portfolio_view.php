@@ -1,6 +1,6 @@
 <?php
     require_once "loged.php";
-    if($data['proyectos'] == null && $data['redesSociales'] == null && $data['tareas'] == null && $data['trabajos'] == null){
+    if($data['usuario']['proyectos'] == null && $data['usuario']['redesSociales'] == null && $data['usuario']['tareas'] == null && $data['usuario']['trabajos'] == null){
         $creacion = false;
     } else{
         $creacion = true;
@@ -112,22 +112,33 @@
     <?php
         if(!$creacion){
             echo '<a class="btn btn-create" href="/portfolio/crear/">Crear Portfolio</a>';
+        } else{
+            echo '<a class="btn-del btn" href="/portfolio/del/">Eliminar Portfolio</a>';
         }
     ?>
     </div>
     <h3>Datos Personales</h3>
     <div class="flexeo">
-        <div class="caja">
-            <p class="informacion"><span class="negrita">Nombre:</span> <?php echo $_SESSION['nombre'] ?></p>
-            <p class="informacion"><span class="negrita">Apellidos:</span> <?php echo $_SESSION['apellidos'] ?></p>
-            <p class="informacion"><span class="negrita">Email:</span> <?php echo $_SESSION['email'] ?></p>
+        <div class="flexeo caja">
+            <div>
+                <p class="informacion"><span class="negrita">Nombre:</span> <?php echo $_SESSION['nombre'] ?></p>
+                <p class="informacion"><span class="negrita">Apellidos:</span> <?php echo $_SESSION['apellidos'] ?></p>
+                <p class="informacion"><span class="negrita">Email:</span> <?php echo $_SESSION['email'] ?></p>
+            </div>
+            <div style="text-align: center;">
+                <img src="<?php echo BASE_URL ?>/img/<?php echo $_SESSION['imagen'] ?>" alt="Imagen de perfil" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 10px;">
+                <form action="/portfolio/uploadImage" method="post" enctype="multipart/form-data">
+                    <input type="file" name="profileImage" id="profileImage" accept="image/*" style="margin-bottom: 10px;">
+                    <button type="submit" name="actualizar" class="btn">Actualizar Imagen</button>
+                </form>
+            </div>
         </div>
     </div>
     <h3>Proyectos <a class="borde btn-create-small" href="/portfolio/crear/proyecto/"><span class="material-symbols-outlined">add</span></a></h3>
     <div class="flexeo">
         <?php
-        if($data['proyectos'] !=  null){
-            foreach ($data['proyectos'] as $proyecto) {
+        if($data['usuario']['proyectos'] !=  null){
+            foreach ($data['usuario']['proyectos'] as $proyecto) {
                 echo "<div class='caja'>";
                 echo "<p class='informacion'><span class='negrita'>Titulo:</span> " . $proyecto['titulo'] . "</p>";
                 echo "<p class='informacion'><span class='negrita'>Descripción:</span> " . $proyecto['descripcion'] . "</p>";
@@ -157,10 +168,10 @@
     <h3>Redes Sociales <a class="borde btn-create-small" href="/portfolio/crear/redesSociales/"><span class="material-symbols-outlined">add</span></a></h3>
     <div class="flexeo">
         <?php
-            if($data['redesSociales'] == null){
+            if($data['usuario']['redesSociales'] == null){
                 echo "<p class='informacion'>No hay redes sociales</p>";
             }else{
-                foreach ($data['redesSociales'] as $redSocial) {
+                foreach ($data['usuario']['redesSociales'] as $redSocial) {
                 echo "<div class='caja'>";
                 echo "<p class='informacion'><span class='negrita'>Nombre:</span> " . $redSocial['redes_socialescol'] . "</p>";
                 echo "<div class='botones'>";
@@ -188,10 +199,10 @@
     <h3>Trabajos <a class="borde btn-create-small" href="/portfolio/crear/trabajo/"><span class="material-symbols-outlined">add</span></a></h3>
     <div class="flexeo">
         <?php
-        if($data['trabajos'] == null){
+        if($data['usuario']['trabajos'] == null){
             echo "<p class='informacion'>No hay trabajos</p>";
         }else{
-            foreach ($data['trabajos'] as $trabajo) {
+            foreach ($data['usuario']['trabajos'] as $trabajo) {
                 echo "<div class='caja'>";
                 echo "<p class='informacion'><span class='negrita'>Titulo:</span> " . $trabajo['titulo'] . "</p>";
                 echo "<p class='informacion'><span class='negrita'>Descripción:</span> " . $trabajo['descripcion'] . "</p>";
@@ -221,10 +232,10 @@
     <h3>Skills <a class="borde btn-create-small" href="/portfolio/crear/skills/"><span class="material-symbols-outlined">add</span></a></h3>
     <div class="flexeo">
         <?php
-            if($data['tareas'] == null){
+            if($data['usuario']['skills'] == null){
                 echo "<p class='informacion'>No hay skills</p>";
             }else{
-                foreach ($data['tareas'] as $skill) {
+                foreach ($data['usuario']['skills'] as $skill) {
                     echo "<div class='caja'>";
                     echo "<p class='informacion'><span class='negrita'>Habilidad:</span> " . $skill['habilidades'] . "</p>";
                     echo "<div class='botones'>";

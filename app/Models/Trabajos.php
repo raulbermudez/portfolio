@@ -93,8 +93,8 @@ class Trabajos extends DBAbstractModel
 
     /*Método para eliminar un trabajo en específico*/
     public function delete($id = '') {
-        $this->query = "DELETE FROM trabajos WHERE id = :id";
-        $this->parametros['id'] = $id;
+        $this->query = "DELETE FROM trabajos WHERE usuarios_id = :usuarios_id";
+        $this->parametros['usuarios_id'] = $id;
         $this->get_results_from_query();
         $this->mensaje = 'Trabajo eliminado';
     }
@@ -112,6 +112,7 @@ class Trabajos extends DBAbstractModel
         $this->mensaje = 'Trabajo actualizado';
     }
 
+    // Método para obtener un trabajo en específico
     public function getById($id=''){
         $this->query = "SELECT * FROM trabajos WHERE id = :id";
         $this->parametros['id'] = $id;
@@ -124,6 +125,7 @@ class Trabajos extends DBAbstractModel
         }
     }
 
+    // Método para obtener los trabajos visibles
     public function getVisibleTrabajos($id = ''){
         $this->query = "SELECT * FROM trabajos WHERE visible = 1 AND usuarios_id = :id";
         $this->parametros['id'] = $id;
@@ -136,6 +138,7 @@ class Trabajos extends DBAbstractModel
         }
     }
 
+    // Método para obtener segun el id del usuario 
     public function getUserId($id = ''){
         $this->query = "SELECT * FROM trabajos WHERE id = :id";
         $this->parametros['id'] = $id;
@@ -148,6 +151,7 @@ class Trabajos extends DBAbstractModel
         }
     }
 
+    // Método para obtener la visibilidad de un proyecto
     public function getVisibility($id = '') {
         if ($id != '') {
             $this->query = "SELECT visible FROM trabajos WHERE id = :id";
@@ -165,6 +169,7 @@ class Trabajos extends DBAbstractModel
         }
     }
 
+    // Método para cambiar la visibilidad de un proyecto
     public function toggleVisibility($id = '') {
         if ($id != '') {
             $currentVisibility = $this->getVisibility($id);

@@ -5,6 +5,7 @@ use App\Models\Skills;
 
 class SkillController extends BaseController
 {
+    // Función que añade todas las tareas
     public function AddAction(){
         $lprocesaFormulario = false;
         $data = array();
@@ -15,6 +16,7 @@ class SkillController extends BaseController
             $data['habilidadesS'] = $_POST['habilidades'];
             $data['skills']  = $_POST['skills'];
             $lprocesaFormulario = true;
+            // Compruebo que los campos no estén vacíos
             if ($data['habilidadesS'] === "") {
                 $lprocesaFormulario = false;
                 $data['msjErrorHabilidadesS'] = "* Las habilidades de la tarea no pueden estar vacías";
@@ -25,8 +27,8 @@ class SkillController extends BaseController
             }
         }
 
+        // Si se ha validado todo
         if($lprocesaFormulario){
-            session_start();
             $id_usua = $_SESSION['id'];
             // Creo la tarea
             $tarea = new SkillsUsuario();
@@ -48,15 +50,17 @@ class SkillController extends BaseController
         }
     }
 
+    // Función que edita una tarea
     public function EditAction($categoria){
-        session_start();
         $data = "";
         $elementos = explode('/', $categoria);
         $categ = end($elementos);
         $data = SkillsUsuario::getInstancia()->getUserId($categ);
-        if(!isset($_SESSION['id']) || $_SESSION['id'] != $data[0]['usuarios_id']){
+        if($_SESSION['id'] != $data[0]['usuarios_id']){
             header('Location: /');
         }
+
+        // Comprobamos si se ha pulsado el botón de editar
         if(isset($_POST['editar'])){
             $data = "";
             $elementos = explode('/', $categoria);
@@ -67,6 +71,7 @@ class SkillController extends BaseController
             $habilidades = $_POST['habilidades'];
             $skills = $_POST['skills'];
 
+            // Comprobamos si los campos están vacíos
             if (!$habilidades){
                 $habilidades = $data[0]['habilidades'];
             }
@@ -75,6 +80,7 @@ class SkillController extends BaseController
                 $skills = $data[0]['categorias_skills_categoria'];
             }
 
+            // Creamos la tarea
             $tarea = new SkillsUsuario();
             $tarea->setHabilidades($habilidades);
             $tarea->setVisible("on");
@@ -93,17 +99,19 @@ class SkillController extends BaseController
         }
     }
 
+    // Función que elimina una tarea
     public function DelAction($categoria){
-        session_start();
         $data = "";
         $elementos = explode('/', $categoria);
         $categ = end($elementos);
         $data = SkillsUsuario::getInstancia()->getUserId($categ);
         
-        if(!isset($_SESSION['id']) || $_SESSION['id'] == null || $_SESSION['id'] != $data[0]['usuarios_id']){
+        if($_SESSION['id'] != $data[0]['usuarios_id']){
             header('Location: /');
             exit();
         }
+
+        // Llamamos al delete de proyectos con el id del proyecto que recibimos en la ruta
         $tarea = SkillsUsuario::getInstancia();
         $tarea->delete($categ);
 
@@ -111,18 +119,19 @@ class SkillController extends BaseController
         header('Location: /portfolio/');
     }
 
+    // Función que cambia la visibilidad de una tarea
     public function VisibilidadAction($categoria){
-        session_start();
         $data = "";
         $elementos = explode('/', $categoria);
         $categ = end($elementos);
         $data = SkillsUsuario::getInstancia()->getUserId($categ);
         
-        if(!isset($_SESSION['id']) || $_SESSION['id'] == null || $_SESSION['id'] != $data[0]['usuarios_id']){
+        if($_SESSION['id'] != $data[0]['usuarios_id']){
             header('Location: /');
             exit();
         }
         
+        // Llamamos al toggleVisibility de proyectos con el id del proyecto que recibimos en la ruta
         $proyecto = SkillsUsuario::getInstancia();
         $proyecto->toggleVisibility($categ);
 

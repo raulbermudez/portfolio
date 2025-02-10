@@ -2,6 +2,11 @@
 namespace App\Models;
 require_once "DBAbstractModel.php";
 
+use App\Models\Trabajos;
+use App\Models\Proyectos;
+use App\Models\SkillsUsuario;
+use App\Models\RedesSociales;
+
 class Usuarios extends DBAbstractModel
 {
     private static $instancia;
@@ -23,10 +28,17 @@ class Usuarios extends DBAbstractModel
     private $resumen_perfil;
     private $token;
     private $foto;
-    private $created_at;
-    private $updated_at;
+    private $fecha_creacion_token;
     private $visible;
     private $cuenta_activa;
+
+    private $trabajos;
+
+    private $skills;
+    
+    private $redesSociales;
+
+    private $proyectos;
 
     // Creo los setters
     public function setNombre($nombre) {
@@ -52,14 +64,22 @@ class Usuarios extends DBAbstractModel
         $this->foto = $foto;
     }
 
+    public function setActivo($cuenta_activa){
+        $this->cuenta_activa = $cuenta_activa;
+    }
+
+    public function setFechaCreacionToken($fecha_creacion_token){
+        $this->fecha_creacion_token = $fecha_creacion_token;
+    }
+
     public function getMensaje(){
         return $this->mensaje;
     }
 
     /*Método para insertar datos en la tabla usuario*/
     public function set() {
-        $this->query = "INSERT INTO usuarios(nombre, apellidos, foto, email, resumen_perfil, password, visible, token, cuenta_activa)
-        VALUES(:nombre, :apellidos, :foto, :email, :resumen_perfil, :password, :visible, :token, :cuenta_activa)";
+        $this->query = "INSERT INTO usuarios(nombre, apellidos, foto, email, resumen_perfil, password, visible, token, fecha_creacion_token, cuenta_activa)
+        VALUES(:nombre, :apellidos, :foto, :email, :resumen_perfil, :password, :visible, :token, :fecha_creacion_token, :cuenta_activa)";
         
         $this->parametros['nombre']= $this->nombre;
         $this->parametros['apellidos']= $this->apellidos;
@@ -68,8 +88,9 @@ class Usuarios extends DBAbstractModel
         $this->parametros['resumen_perfil']= $this->resumen_perfil;
         $this->parametros['foto']= $this->foto;
         $this->parametros['token']= $this->token;
-        $this->parametros['cuenta_activa'] = 1; // Por defecto ya esta activada la cuenta
-        $this->parametros['visible'] = 0; // Por defecto el usuario no es visible
+        $this->parametros['fecha_creacion_token'] = date('Y-m-d H:i:s');
+        $this->parametros['cuenta_activa'] = $this->cuenta_activa;
+        $this->parametros['visible'] = 0;
         $this->get_results_from_query();
         $this->mensaje = 'Usuario añadido.';
     }
@@ -87,7 +108,14 @@ class Usuarios extends DBAbstractModel
         } else {
             $this->mensaje = 'Usuario no encontrada';
         }
-        return $this->rows[0] ?? null;
+        $usuario = $this->rows[0] ?? null;
+
+        // Obtengo los trabajos, proyectos, skills, redes sociales.
+        $usuario['trabajos'] = Trabajos::getInstancia()->get($id);
+        $usuario['proyectos'] = Proyectos::getInstancia()->get($id);
+        $usuario['skills'] = SkillsUsuario::getInstancia()->get($id);
+        $usuario['redesSociales'] = RedesSociales::getInstancia()->get($id);
+        return $usuario ?? null;
         
     }
 
@@ -124,6 +152,15 @@ class Usuarios extends DBAbstractModel
     public function getAll(){
         $this->query = "SELECT * FROM usuarios";
         $this->get_results_from_query();
+        // Obtengo los trabajos, proyectos, skills, redes sociales.
+        // Recooro todos los usuarios y segun el id voy guardando los datos
+        foreach ($this->rows as $usuario) {
+            $id = $usuario['id'];
+            $usuario['trabajos'] = Trabajos::getInstancia()->get($id);
+            $usuario['proyectos'] = Proyectos::getInstancia()->get($id);
+            $usuario['skills'] = SkillsUsuario::getInstancia()->get($id);
+            $usuario['redesSociales'] = RedesSociales::getInstancia()->get($id);
+        }
         return $this->rows;
     }
 
@@ -200,6 +237,7 @@ class Usuarios extends DBAbstractModel
         }
     }
 
+    // Funcion para obtener el id de un usuario usando el email
     public function getIdByEmail($email){
         $this->query = "SELECT id FROM usuarios WHERE email = :email";
         $this->parametros['email'] = $email;
@@ -209,6 +247,51 @@ class Usuarios extends DBAbstractModel
         } else {
             return null;
         }
+    }
+
+    // Funcion para obtener la foto de un usuario usando el email
+    public function getFotoByEmail($email){
+        $this->query = "SELECT foto FROM usuarios WHERE email = :email";
+        $this->parametros['email'] = $email;
+        $this->get_results_from_query();
+        if (count($this->rows) > 0) {
+            return $this->rows[0]['foto'];
+        } else {
+            return null;
+        }
+    }
+
+    // Funcion para obtener el token de un usuario usando el email
+    public function verificarToken($token = ''){
+        $this->query = "SELECT * FROM usuarios WHERE token = :token";
+        $this->parametros['token'] = $token;
+        $this->get_results_from_query();
+        // var_dump($token);die();
+        if(count($this->rows) == 1){
+           // Comprobar si el token ha caducado
+            $this->fecha_creacion_token = $this->rows[0]['fecha_creacion_token'];
+            $fecha_actual = date('Y-m-d H:i:s');
+            $diferencia = strtotime($fecha_actual) - strtotime($this->fecha_creacion_token);
+            if ($diferencia < 86400) {
+                $this->query = "UPDATE usuarios SET token = NULL, fecha_creacion_token = NULL, visible = 1 , cuenta_activa = 1 WHERE token = :token";
+                $this->parametros['token'] = $token;
+                $this->get_results_from_query();
+                $this->mensaje = 'Usuario verificado';
+            } else {
+                $this->mensaje = 'El token ha caducado';
+            }
+        } else {
+            $this->mensaje = 'Token no encontrado';
+        }
+    }
+
+    // Funcion para actualizar la foto de un usuario
+    public function updateFoto($id = ''){
+        $this->query = "UPDATE usuarios SET foto = :foto WHERE id = :id";
+        $this->parametros['foto'] = $this->foto;
+        $this->parametros['id'] = $id;
+        $this->get_results_from_query();
+        $this->mensaje = 'Foto actualizada';
     }
 }
 ?>

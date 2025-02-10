@@ -4,16 +4,19 @@ use App\Models\RedesSociales;
 
 class RedSocialController extends BaseController
 {
+    // Función que muestra la vista de la lista de proyectos
     public function AddAction(){
         $lprocesaFormulario = false;
         $data = array();
         $data['msjErrorNombre'] = $data['msjErrorUrl'] = '';
         $data['nombre'] = $data['url'] = '';
+        // Compruebo si se ha enviado el formulario
         if (isset($_POST['crear'])){
             // Obtengo todos los valores y los guardo en variables
             $data['nombre'] = $_POST['nombre'];
             $data['url']  = $_POST['url'];
             $lprocesaFormulario = true;
+            // Compruebo que los campos no estén vacíos
             if ($data['nombre'] === "") {
                 $lprocesaFormulario = false;
                 $data['msjErrorNombre'] = "* El nombre del proyecto no puede estar vacío";
@@ -24,8 +27,8 @@ class RedSocialController extends BaseController
             }
         }
 
+        // Si se ha enviado el formulario y los campos no están vacíos
         if($lprocesaFormulario){
-            session_start();
             $id_usua = $_SESSION['id'];
             // Creo la red social
             $redSocial = new RedesSociales();
@@ -41,16 +44,17 @@ class RedSocialController extends BaseController
         }
     }
 
+    // Función que muestra la vista de la lista de proyectos
     public function EditAction($categoria){
-        session_start();
         $data = "";
         $elementos = explode('/', $categoria);
         $categ = end($elementos);
         $data = RedesSociales::getInstancia()->getUserId($categ);
-        if(!isset($_SESSION['id']) || $_SESSION['id'] != $data[0]['usuarios_id']){
+        if($_SESSION['id'] != $data[0]['usuarios_id']){
             header('Location: /');
         }
 
+        // Compruebo si se ha enviado el formulario
         if(isset($_POST['editar'])){
             $data = "";
             $elementos = explode('/', $categoria);
@@ -61,6 +65,7 @@ class RedSocialController extends BaseController
             $nombre = $_POST['nombre'];
             $url = $_POST['url'];
 
+            // Compruebo que los campos no estén vacíos
             if (!$nombre){
                 $nombre = $data[0]['redes_socialescol'];
             }
@@ -69,6 +74,7 @@ class RedSocialController extends BaseController
                 $url = $data[0]['url'];
             }
 
+            // Creo la red social
             $redSocial = new RedesSociales();
             $redSocial->setRedesSocialescol($nombre);
             $redSocial->setUrl($url);
@@ -86,18 +92,19 @@ class RedSocialController extends BaseController
         }
     }
 
+    // Función que muestra la vista de la lista de proyectos
     public function DelAction($categoria){
-
-        session_start();
         $data = "";
         $elementos = explode('/', $categoria);
         $categ = end($elementos);
         $data = RedesSociales::getInstancia()->getUserId($categ);
         
-        if(!isset($_SESSION['id']) || $_SESSION['id'] == null || $_SESSION['id'] != $data[0]['usuarios_id']){
+        if($_SESSION['id'] != $data[0]['usuarios_id']){
             header('Location: /');
             exit();
         }
+
+        // Eliminamos la red social
         $redSocial = RedesSociales::getInstancia();
         $redSocial->delete($categ);
 
@@ -105,17 +112,18 @@ class RedSocialController extends BaseController
         header('Location: /portfolio/');
     }
 
+    // Función que muestra la vista de la lista de proyectos
     public function VisibilidadAction($categoria){
-        session_start();
         $elementos = explode('/', $categoria);
         $categ = end($elementos);
         $data = RedesSociales::getInstancia()->getUserId($categ);
         
-        if(!isset($_SESSION['id']) || $_SESSION['id'] != $data[0]['usuarios_id']){
+        if($_SESSION['id'] != $data[0]['usuarios_id']){
             header('Location: /');
             exit();
         }
         
+        // Cambiamos la visibilidad de la red social
         $proyecto = RedesSociales::getInstancia();
         $proyecto->toggleVisibility($categ);
 

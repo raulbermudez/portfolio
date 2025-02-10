@@ -24,17 +24,23 @@
     </div>
     <h3>Datos Personales</h3>
     <div class="flexeo">
-        <div class="caja">
-            <p class="informacion"><span class="negrita">Nombre:</span> <?php echo $data['usuario']['nombre'] ?></p>
-            <p class="informacion"><span class="negrita">Apellidos:</span> <?php echo $data['usuario']['apellidos'] ?></p>
-            <p class="informacion"><span class="negrita">Email:</span> <?php echo $data['usuario']['email'] ?></p>
+        <div class="flexeo caja">
+            <div>
+                <p class="informacion"><span class="negrita">Nombre:</span> <?php echo $data['usuario']['nombre'] ?></p>
+                <p class="informacion"><span class="negrita">Apellidos:</span> <?php echo $data['usuario']['apellidos'] ?></p>
+                <p class="informacion"><span class="negrita">Email:</span> <?php echo $data['usuario']['email'] ?></p>
+            </div>
+            <div style="text-align: center;">
+                <img src="<?php echo BASE_URL ?>/img/<?php echo $data['usuario']['foto'] ?>" alt="Imagen de perfil" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 10px;">
+                
+            </div>
         </div>
     </div>
     <h3>Proyectos </h3>
     <div class="flexeo">
         <?php
-        if($data['proyectos'] !=  null){
-            foreach ($data['proyectos'] as $proyecto) {
+        if($data['usuario']['proyectos'] !=  null){
+            foreach ($data['usuario']['proyectos'] as $proyecto) {
                 echo "<div class='caja'>";
                 echo "<p class='informacion'><span class='negrita'>Titulo:</span> " . $proyecto['titulo'] . "</p>";
                 echo "<p class='informacion'><span class='negrita'>Descripción:</span> " . $proyecto['descripcion'] . "</p>";
@@ -53,10 +59,10 @@
     <h3>Redes Sociales </h3>
     <div class="flexeo">
         <?php
-            if($data['redesSociales'] == null){
+            if($data['usuario']['redesSociales'] == null){
                 echo "<p class='informacion'>No hay redes sociales</p>";
             }else{
-                foreach ($data['redesSociales'] as $redSocial) {
+                foreach ($data['usuario']['redesSociales'] as $redSocial) {
                 echo "<div class='caja'>";
                 echo "<p class='informacion'><span class='negrita'>Nombre:</span> " . $redSocial['redes_socialescol'] . "</p>";
                 echo "<div class='botones'>";
@@ -73,10 +79,10 @@
     <h3>Trabajos </h3>
     <div class="flexeo">
         <?php
-        if($data['trabajos'] == null){
+        if($data['usuario']['trabajos'] == null){
             echo "<p class='informacion'>No hay trabajos</p>";
         }else{
-            foreach ($data['trabajos'] as $trabajo) {
+            foreach ($data['usuario']['trabajos'] as $trabajo) {
                 echo "<div class='caja'>";
                 echo "<p class='informacion'><span class='negrita'>Titulo:</span> " . $trabajo['titulo'] . "</p>";
                 echo "<p class='informacion'><span class='negrita'>Descripción:</span> " . $trabajo['descripcion'] . "</p>";
@@ -95,10 +101,10 @@
     <h3>Skills </h3>
     <div class="flexeo">
         <?php
-            if($data['skills'] == null){
+            if($data['usuario']['skills'] == null){
                 echo "<p class='informacion'>No hay skills</p>";
             }else{
-                foreach ($data['skills'] as $skill) {
+                foreach ($data['usuario']['skills'] as $skill) {
                     echo "<div class='caja'>";
                     echo "<p class='informacion'><span class='negrita'>Habilidad:</span> " . $skill['habilidades'] . "</p>";
                     echo "<div class='botones'>";
