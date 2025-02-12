@@ -41,15 +41,17 @@
         <?php
         if($data['usuario']['proyectos'] !=  null){
             foreach ($data['usuario']['proyectos'] as $proyecto) {
-                echo "<div class='caja'>";
-                echo "<p class='informacion'><span class='negrita'>Titulo:</span> " . $proyecto['titulo'] . "</p>";
-                echo "<p class='informacion'><span class='negrita'>Descripción:</span> " . $proyecto['descripcion'] . "</p>";
-                echo "<div class='botones'>";
-                echo "<p class='informacion'><span class='negrita'>Tecnologías empleadas:</span> " . $proyecto['tecnologias'] . "</p>";
-                echo "<div>";
-                echo "</div>";
-                echo "</div>";
-                echo "</div>";
+                if ($proyecto['visible'] == 1){
+                    echo "<div class='caja'>";
+                    echo "<p class='informacion'><span class='negrita'>Titulo:</span> " . $proyecto['titulo'] . "</p>";
+                    echo "<p class='informacion'><span class='negrita'>Descripción:</span> " . $proyecto['descripcion'] . "</p>";
+                    echo "<div class='botones'>";
+                    echo "<p class='informacion'><span class='negrita'>Tecnologías empleadas:</span> " . $proyecto['tecnologias'] . "</p>";
+                    echo "<div>";
+                    echo "</div>";
+                    echo "</div>";
+                    echo "</div>";
+                }
             }
         } else{
             echo "<p class='informacion'>No hay proyectos</p>";
@@ -63,14 +65,16 @@
                 echo "<p class='informacion'>No hay redes sociales</p>";
             }else{
                 foreach ($data['usuario']['redesSociales'] as $redSocial) {
-                echo "<div class='caja'>";
-                echo "<p class='informacion'><span class='negrita'>Nombre:</span> " . $redSocial['redes_socialescol'] . "</p>";
-                echo "<div class='botones'>";
-                echo "<p class='informacion'><span class='negrita'>Url:</span> " . $redSocial['url'] . "</p>";
-                echo "<div>";
-                echo "</div>";
-                echo "</div>";
-                echo "</div>";
+                    if ($redSocial['visible'] == 1){
+                        echo "<div class='caja'>";
+                    echo "<p class='informacion'><span class='negrita'>Nombre:</span> " . $redSocial['redes_socialescol'] . "</p>";
+                    echo "<div class='botones'>";
+                    echo "<p class='informacion'><span class='negrita'>Url:</span> " . $redSocial['url'] . "</p>";
+                    echo "<div>";
+                    echo "</div>";
+                    echo "</div>";
+                    echo "</div>";
+                    }
                 }
             }
         ?>
@@ -83,17 +87,19 @@
             echo "<p class='informacion'>No hay trabajos</p>";
         }else{
             foreach ($data['usuario']['trabajos'] as $trabajo) {
-                echo "<div class='caja'>";
-                echo "<p class='informacion'><span class='negrita'>Titulo:</span> " . $trabajo['titulo'] . "</p>";
-                echo "<p class='informacion'><span class='negrita'>Descripción:</span> " . $trabajo['descripcion'] . "</p>";
-                echo "<p class='informacion'><span class='negrita'>Fecha de inicio:</span> " . $trabajo['fecha_inicio'] . "</p>";
-                echo "<p class='informacion'><span class='negrita'>Fecha de fin:</span> " . $trabajo['fecha_final'] . "</p>";
-                echo "<div class='botones'>";
-                echo "<p class='informacion'><span class='negrita'>Logros:</span> " . $trabajo['logros'] . "</p>";
-                echo "<div>";
-                echo "</div>";
-                echo "</div>";
-                echo "</div>";
+                if($trabajo['visible'] == 1){
+                    echo "<div class='caja'>";
+                    echo "<p class='informacion'><span class='negrita'>Titulo:</span> " . $trabajo['titulo'] . "</p>";
+                    echo "<p class='informacion'><span class='negrita'>Descripción:</span> " . $trabajo['descripcion'] . "</p>";
+                    echo "<p class='informacion'><span class='negrita'>Fecha de inicio:</span> " . $trabajo['fecha_inicio'] . "</p>";
+                    echo "<p class='informacion'><span class='negrita'>Fecha de fin:</span> " . $trabajo['fecha_final'] . "</p>";
+                    echo "<div class='botones'>";
+                    echo "<p class='informacion'><span class='negrita'>Logros:</span> " . $trabajo['logros'] . "</p>";
+                    echo "<div>";
+                    echo "</div>";
+                    echo "</div>";
+                    echo "</div>";
+                }
             }
         }
         ?>
@@ -105,14 +111,16 @@
                 echo "<p class='informacion'>No hay skills</p>";
             }else{
                 foreach ($data['usuario']['skills'] as $skill) {
-                    echo "<div class='caja'>";
-                    echo "<p class='informacion'><span class='negrita'>Habilidad:</span> " . $skill['habilidades'] . "</p>";
-                    echo "<div class='botones'>";
-                    echo "<p class='informacion'><span class='negrita'>Skill:</span> " . $skill['categorias_skills_categoria'] . "</p>";
-                    echo "<div>";
-                    echo "</div>";
-                    echo "</div>";
-                    echo "</div>";
+                    if($skill['visible'] == 1){
+                        echo "<div class='caja'>";
+                        echo "<p class='informacion'><span class='negrita'>Habilidad:</span> " . $skill['habilidades'] . "</p>";
+                        echo "<div class='botones'>";
+                        echo "<p class='informacion'><span class='negrita'>Skill:</span> " . $skill['categorias_skills_categoria'] . "</p>";
+                        echo "<div>";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "</div>";
+                    } 
                 }
             }
         ?>
